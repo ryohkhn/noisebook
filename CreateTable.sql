@@ -122,9 +122,10 @@ CREATE TABLE place (
 CREATE TABLE future_concert (
   concert_id INT PRIMARY KEY,
   concert_name VARCHAR(255) NOT NULL,
-  concert_date DATE NOT NULL,
+  concert_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   start_time TIME NOT NULL,
   ticket_price INT NOT NULL,
+  children_allowed BOOLEAN NOT NULL DEFAULT false,
   attendance INT NOT NULL,
   place_id INT,
   FOREIGN KEY (place_id) REFERENCES place (place_id)
@@ -133,9 +134,10 @@ CREATE TABLE future_concert (
 CREATE TABLE finished_concert (
   concert_id INT PRIMARY KEY,
   concert_name VARCHAR(255) NOT NULL,
-  concert_date DATE NOT NULL,
+  concert_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   start_time TIME NOT NULL,
   ticket_price INT NOT NULL,
+  children_allowed BOOLEAN NOT NULL DEFAULT false,
   place_id INT,
   FOREIGN KEY (place_id) REFERENCES place (place_id)
 );
@@ -213,6 +215,8 @@ CREATE TABLE sub_genre (
   FOREIGN KEY (parent_genre) REFERENCES genre (genre_id)
   PRIMARY KEY(parent_genre, sub_genre_title)
 );
+
+-- TAGS
 
 
 
