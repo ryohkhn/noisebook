@@ -142,44 +142,47 @@ CREATE TABLE finished_concert (
   FOREIGN KEY (place_id) REFERENCES place (place_id)
 );
 
--- REVIEWS (avis) (4 tables)
+-- REVIEWS (avis) (5 tables)
 
-CREATE TABLE group_review (
+CREATE TABLE review (
+  review_id INT PRIMARY KEY,
   review_timestamp TIME NOT NULL,
   review_grade INT NOT NULL,
-  review_comment VARCHAR(255) NOT NULL,
+  review_comment VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE group_review (
+  review_id INT,
   user_id INT,
   group_id INT,
+  FOREIGN KEY (review_id) REFERENCES review (review_id),
   FOREIGN KEY (user_id) REFERENCES user (user_id),
   FOREIGN KEY (group_id) REFERENCES group (group_id)
 );
 
 CREATE TABLE track_review (
-  review_timestamp TIME NOT NULL,
-  review_grade INT NOT NULL,
-  review_comment VARCHAR(255) NOT NULL,
+  review_id INT,
   user_id INT,
   track_id INT,
+  FOREIGN KEY (review_id) REFERENCES review (review_id),
   FOREIGN KEY (user_id) REFERENCES user (user_id),
   FOREIGN KEY (track_id) REFERENCES track (track_id)
 );
 
 CREATE TABLE place_review (
-  review_timestamp TIME NOT NULL,
-  review_grade INT NOT NULL,
-  review_comment VARCHAR(255) NOT NULL,
+  review_id INT,
   user_id INT,
   place_id INT,
+  FOREIGN KEY (review_id) REFERENCES review (review_id),
   FOREIGN KEY (user_id) REFERENCES user (user_id),
   FOREIGN KEY (place_id) REFERENCES place (place_id)
 );
 
 CREATE TABLE concert_review (
-  review_timestamp TIME NOT NULL,
-  review_grade INT NOT NULL,
-  review_comment VARCHAR(255) NOT NULL,
+  review_id INT,
   user_id INT,
   concert_id INT,
+  FOREIGN KEY (review_id) REFERENCES review (review_id),
   FOREIGN KEY (user_id) REFERENCES user (user_id),
   FOREIGN KEY (concert_id) REFERENCES finished_concert (concert_id)
 );
@@ -212,12 +215,66 @@ CREATE TABLE genre (
 CREATE TABLE sub_genre (
   sub_genre_title VARCHAR(255) NOT NULL,
   parent_genre INT,
-  FOREIGN KEY (parent_genre) REFERENCES genre (genre_id)
+  FOREIGN KEY (parent_genre) REFERENCES genre (genre_id),
   PRIMARY KEY(parent_genre, sub_genre_title)
 );
 
--- TAGS
+-- TAGS (8 tables)
 
+CREATE TABLE tag (
+  tag_id INT PRIMARY KEY,
+  tag_content VARCHAR(255)
+);
 
+CREATE TABLE post_tag(
+  tag_id INT,
+  post_id INT,
+  FOREIGN KEY (tag_id) REFERENCES tag (tag_id),
+  FOREIGN KEY (post_id) REFERENCES post (post_id)
+);
+
+CREATE TABLE review_tag(
+  tag_id INT,
+  review_id INT,
+  FOREIGN KEY (tag_id) REFERENCES tag (tag_id),
+  FOREIGN KEY (review_id) REFERENCES review (review_id)
+);
+
+CREATE TABLE concert_tag(
+  tag_id INT,
+  concert_id INT,
+  FOREIGN KEY (tag_id) REFERENCES tag (tag_id),
+  FOREIGN KEY (concert_id) REFERENCES concert (concert_id)
+);
+
+CREATE TABLE place_tag(
+  tag_id INT,
+  place_id INT,
+  FOREIGN KEY (tag_id) REFERENCES tag (tag_id),
+  FOREIGN KEY (place_id) REFERENCES place (place_id)
+);
+
+CREATE TABLE group_tag(
+  tag_id INT,
+  group_id INT,
+  FOREIGN KEY (tag_id) REFERENCES tag (tag_id),
+  FOREIGN KEY (group_id) REFERENCES group (group_id)
+);
+
+CREATE TABLE genre_tag(
+  tag_id INT,
+  genre_id INT,
+  FOREIGN KEY (tag_id) REFERENCES tag (tag_id),
+  FOREIGN KEY (genre_id) REFERENCES genre (genre_id)
+);
+
+CREATE TABLE sub_genre_tag(
+  tag_id INT,
+  sub_genre_title VARCHAR(255),
+  parent_genre INT,
+  FOREIGN KEY (tag_id) REFERENCES tag (tag_id),
+  FOREIGN KEY (sub_genre_title) REFERENCES sub_genre (sub_genre_title),
+  FOREIGN KEY (parent_genre) REFERENCES sub_genre (parent_genre)
+);
 
 -- END
