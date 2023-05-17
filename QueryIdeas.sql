@@ -29,6 +29,7 @@ ORDER BY avg_review_grade DESC
 LIMIT 5;
 
 --Find the top 3 cities with the highest number of concerts.
+-- — une sous-requête dans le FROM ;
 SELECT p.city, COUNT(*) AS concert_count
 FROM (
   SELECT concert_id, place_id FROM finished_concert
@@ -41,6 +42,7 @@ ORDER BY concert_count DESC
 LIMIT 3;
 
 -- Find the number of concerts organized by each organizer.
+-- — une jointure externe (LEFT JOIN, RIGHT JOIN ou FULL JOIN) ;
 SELECT o.ortganizateur_id, o.ortganizateur_name, COUNT(fc.concert_id) + COUNT(fnc.concert_id) AS concert_count
 FROM organizer o
 LEFT JOIN finished_concert fc ON o.user_id = fc.place_id

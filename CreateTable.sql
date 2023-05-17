@@ -16,9 +16,9 @@ CREATE TABLE user (
   bio VARCHAR(255) NOT NULL,
   -- todo fix this cause it doesnt work:
   CONSTRAINT user_has_subentity CHECK (
-    EXISTS (SELECT * FROM person WHERE Person.user_id = user.user_id)
-    OR EXISTS (SELECT * FROM group WHERE Group.user_id = user.user_id)
-    OR EXISTS (SELECT * FROM organizer WHERE Organizer.user_id = user.user_id)
+    EXISTS (SELECT * FROM person WHERE person.user_id = user.user_id)
+    OR EXISTS (SELECT * FROM group WHERE group.user_id = user.user_id)
+    OR EXISTS (SELECT * FROM organizer WHERE organizer.user_id = user.user_id)
   )
 );
 
@@ -28,20 +28,23 @@ CREATE TABLE person (
   first_name VARCHAR(255) NOT NULL,
   last_name VARCHAR(255) NOT NULL,
   birth_date DATE NOT NULL,
+  verified_musician BOOLEAN NOT NULL DEFAULT false,
   FOREIGN KEY (user_id) REFERENCES user (user_id)
 );
 
 CREATE TABLE group (
   group_id INT PRIMARY KEY,
   user_id INT,
+  music_group_id INT,
   group_name VARCHAR(255) NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES user (user_id)
-);
+  FOREIGN KEY (user_id) REFERENCES user (user_id),
+  FOREIGN KEY (music_group_id) REFERENCES music_group (music_group_id)
+ );
 
 CREATE TABLE organizer (
-  ortganizateur_id INT PRIMARY KEY,
+  organizer_id INT PRIMARY KEY,
   user_id INT,
-  ortganizateur_name VARCHAR(255) NOT NULL,
+  organizer_name VARCHAR(255) NOT NULL,
   location VARCHAR(255) NOT NULL,
   FOREIGN KEY (user_id) REFERENCES user (user_id)
 );
@@ -65,7 +68,7 @@ CREATE TABLE friendship (
 );
 
 
--- TRACKS AND PLAYLISTS (5 tables)
+-- TRACKS AND PLAYLISTS (6 tables)
 
 CREATE TABLE playlist (
   playlist_id INT PRIMARY KEY,
@@ -92,6 +95,11 @@ CREATE TABLE userCreatesPlaylist (
 CREATE TABLE musician (
     musician_id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE music_group (
+    music_group_id SERIAL PRIMARY KEY,
+    group_name VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE track (
@@ -148,7 +156,8 @@ CREATE TABLE review (
   review_id INT PRIMARY KEY,
   review_timestamp TIME NOT NULL,
   review_grade INT NOT NULL,
-  review_comment VARCHAR(255) NOT NULL
+  review_comment VARCHAR(255) NOT NULL,
+  CHECK (review_grade >= 0 AND review_grade <= 10)
 );
 
 CREATE TABLE group_review (
@@ -240,11 +249,18 @@ CREATE TABLE review_tag(
   FOREIGN KEY (review_id) REFERENCES review (review_id)
 );
 
-CREATE TABLE concert_tag(
+CREATE TABLE future_concert_tag(
   tag_id INT,
   concert_id INT,
   FOREIGN KEY (tag_id) REFERENCES tag (tag_id),
-  FOREIGN KEY (concert_id) REFERENCES concert (concert_id)
+  FOREIGN KEY (concert_id) REFERENCES future_concert (concert_id)
+);
+
+CREATE TABLE finished_concert_tag(
+  tag_id INT,
+  concert_id INT,
+  FOREIGN KEY (tag_id) REFERENCES tag (tag_id),
+  FOREIGN KEY (concert_id) REFERENCES finished_concert (concert_id)
 );
 
 CREATE TABLE place_tag(
@@ -254,11 +270,11 @@ CREATE TABLE place_tag(
   FOREIGN KEY (place_id) REFERENCES place (place_id)
 );
 
-CREATE TABLE group_tag(
+CREATE TABLE music_group_tag(
   tag_id INT,
   group_id INT,
   FOREIGN KEY (tag_id) REFERENCES tag (tag_id),
-  FOREIGN KEY (group_id) REFERENCES group (group_id)
+  FOREIGN KEY (music_group_id) REFERENCES music_group (music_group_id)
 );
 
 CREATE TABLE genre_tag(
@@ -276,5 +292,6 @@ CREATE TABLE sub_genre_tag(
   FOREIGN KEY (sub_genre_title) REFERENCES sub_genre (sub_genre_title),
   FOREIGN KEY (parent_genre) REFERENCES sub_genre (parent_genre)
 );
+
 
 -- END
