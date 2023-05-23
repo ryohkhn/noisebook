@@ -113,14 +113,16 @@ CREATE TABLE link_people_musician (
     person_id INT,
     musician_id INT,
     FOREIGN KEY (person_id) REFERENCES people(person_id),
-    FOREIGN KEY (musician_id) REFERENCES musician(musician_id)
+    FOREIGN KEY (musician_id) REFERENCES musician(musician_id),
+    PRIMARY KEY (person_id,musician_id)
 );
 
 CREATE TABLE link_musician_music_group (
     musician_id INT,
     music_group_id INT,
     FOREIGN KEY (musician_id) REFERENCES musician(musician_id),
-    FOREIGN KEY (music_group_id) REFERENCES music_group(music_group_id)
+    FOREIGN KEY (music_group_id) REFERENCES music_group(music_group_id),
+    PRIMARY KEY (musician_id,music_group_id)
 );
 
 -- FOLLOW AND FRIENDSHIP RELATIONSHIP (2 tables)
@@ -212,35 +214,40 @@ CREATE TABLE future_concert_musicians_lineup (
     musician_id INT,
     concert_id INT,
     FOREIGN KEY (musician_id) REFERENCES musician (musician_id),
-    FOREIGN KEY (concert_id) REFERENCES future_concert (concert_id)
+    FOREIGN KEY (concert_id) REFERENCES future_concert (concert_id),
+    PRIMARY KEY (musician_id,concert_id)
 );
 
 CREATE TABLE future_concert_music_group_lineup (
     music_group_id INT,
     concert_id INT,
     FOREIGN KEY (music_group_id) REFERENCES music_group (music_group_id),
-    FOREIGN KEY (concert_id) REFERENCES future_concert (concert_id)
+    FOREIGN KEY (concert_id) REFERENCES future_concert (concert_id),
+    PRIMARY KEY (music_group_id,concert_id)
 );
 
 CREATE TABLE finished_concert_musicians_lineup (
     musician_id INT,
     concert_id INT,
     FOREIGN KEY (musician_id) REFERENCES musician (musician_id),
-    FOREIGN KEY (concert_id) REFERENCES finished_concert (concert_id)
+    FOREIGN KEY (concert_id) REFERENCES finished_concert (concert_id),
+    PRIMARY KEY (musician_id,concert_id)
 );
 
 CREATE TABLE finished_concert_music_group_lineup (
     music_group_id INT,
     concert_id INT,
     FOREIGN KEY (music_group_id) REFERENCES music_group (music_group_id),
-    FOREIGN KEY (concert_id) REFERENCES finished_concert (concert_id)
+    FOREIGN KEY (concert_id) REFERENCES finished_concert (concert_id),
+    PRIMARY KEY (music_group_id,concert_id)
 );
 
 CREATE TABLE organizers_announce_concert (
     organizer_id INT,
     concert_id INT,
     FOREIGN KEY (organizer_id) REFERENCES organizers (organizer_id),
-    FOREIGN KEY (concert_id) REFERENCES future_concert (concert_id)
+    FOREIGN KEY (concert_id) REFERENCES future_concert (concert_id),
+    PRIMARY KEY (organizer_id,concert_id)
 );
 
 CREATE TABLE future_concert_genre(

@@ -9,3 +9,7 @@
 \copy sub_genre FROM 'csv/sub_genre.csv' WITH (FORMAT csv, HEADER true);
 \copy place FROM 'csv/place.csv' WITH (FORMAT csv, HEADER true);
 \copy review FROM 'csv/review.csv' WITH (FORMAT csv, HEADER true);
+\copy link_musician_music_group FROM 'csv/link_musician_music_group.csv' WITH (FORMAT csv, HEADER true);
+\copy link_people_musician FROM 'csv/link_people_musician.csv' WITH (FORMAT csv, HEADER true);
+\copy music_group_plays_track FROM 'csv/music_group_plays_track.csv' WITH (FORMAT csv, HEADER true);
+\copy musician_plays_track FROM 'csv/musician_plays_track.csv' WITH (FORMAT csv, HEADER true);
