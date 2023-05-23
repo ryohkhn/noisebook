@@ -1,16 +1,36 @@
 DROP TABLE
-    IF EXISTS musician, music_group, track,
+    IF EXISTS  genre, sub_genre,
+    musician, music_group, track,
+    track_genre, track_sub_genre,
     users, people, groups, organizers,
     follows, friendship, playlist,
     music_group_plays_track, musician_plays_track,
     place, future_concert, finished_concert,
+    future_concert_genre, finished_concert_genre,
+    future_concert_sub_genre, finished_concert_sub_genre,
     group_review, track_review, place_review,
-    concert_review, post, media, genre, sub_genre,
+    concert_review, post, media,
     tag, post_tag, review_tag, future_concert_tag,
     finished_concert_tag, place_tag, music_group_tag,
     genre_tag, sub_genre_tag, review CASCADE;
 
--- BASE DATA ENTITIES (3 tables)
+-- GENRES (2 tables)
+
+CREATE TABLE genre (
+    genre_id SERIAL PRIMARY KEY,
+    genre_title VARCHAR(40) NOT NULL,
+    genre_description VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE sub_genre (
+    sub_genre_id SERIAL PRIMARY KEY,
+    sub_genre_title VARCHAR(40) NOT NULL,
+    sub_genre_description VARCHAR(255) NOT NULL,
+    parent_genre INT,
+    FOREIGN KEY (parent_genre) REFERENCES genre (genre_id)
+);
+
+-- BASE DATA ENTITIES (5 tables)
 
 CREATE TABLE musician (
     musician_id SERIAL PRIMARY KEY,
@@ -25,6 +45,22 @@ CREATE TABLE music_group (
 CREATE TABLE track (
     track_id SERIAL PRIMARY KEY,
     title VARCHAR(40) NOT NULL
+);
+
+CREATE TABLE track_genre(
+    track_id INT,
+    genre_id INT,
+    FOREIGN KEY (track_id) REFERENCES track (track_id),
+    FOREIGN KEY (genre_id) REFERENCES genre (genre_id),
+    PRIMARY KEY (track_id, genre_id)
+);
+
+CREATE TABLE track_sub_genre(
+    track_id INT,
+    sub_genre_id INT,
+    FOREIGN KEY (track_id) REFERENCES track (track_id),
+    FOREIGN KEY (sub_genre_id) REFERENCES sub_genre (sub_genre_id),
+    PRIMARY KEY (track_id, sub_genre_id)
 );
 
 -- BASIC ENTITIES (4 tables)
@@ -121,7 +157,7 @@ CREATE TABLE music_group_plays_track (
     PRIMARY KEY (music_group_id, track_id)
 );
 
--- CONCERTS AND PLACES (3 tables)
+-- CONCERTS AND PLACES (7 tables)
 
 CREATE TABLE place (
     place_id SERIAL PRIMARY KEY,
@@ -158,6 +194,38 @@ CREATE TABLE finished_concert (
     FOREIGN KEY (place_id) REFERENCES place (place_id),
     CHECK(ticket_price >= 0),
     CHECK(attendance >= 0)
+);
+
+CREATE TABLE future_concert_genre(
+  concert_id INT,
+  genre_id INT,
+  FOREIGN KEY (concert_id) REFERENCES future_concert (concert_id),
+  FOREIGN KEY (genre_id) REFERENCES genre (genre_id),
+  PRIMARY KEY (concert_id, genre_id)
+);
+
+CREATE TABLE future_concert_sub_genre(
+  concert_id INT,
+  sub_genre_id INT,
+  FOREIGN KEY (concert_id) REFERENCES future_concert (concert_id),
+  FOREIGN KEY (sub_genre_id) REFERENCES sub_genre (sub_genre_id),
+  PRIMARY KEY (concert_id, sub_genre_id)
+);
+
+CREATE TABLE finished_concert_genre(
+  concert_id INT,
+  genre_id INT,
+  FOREIGN KEY (concert_id) REFERENCES finished_concert (concert_id),
+  FOREIGN KEY (genre_id) REFERENCES genre (genre_id),
+  PRIMARY KEY (concert_id, genre_id)
+);
+
+CREATE TABLE finished_concert_sub_genre(
+  concert_id INT,
+  sub_genre_id INT,
+  FOREIGN KEY (concert_id) REFERENCES finished_concert (concert_id),
+  FOREIGN KEY (sub_genre_id) REFERENCES sub_genre (sub_genre_id),
+  PRIMARY KEY (concert_id, sub_genre_id)
 );
 
 -- REVIEWS (avis) (5 tables)
@@ -223,22 +291,6 @@ CREATE TABLE media (
     FOREIGN KEY (post_id) REFERENCES post (post_id)
 );
 
--- GENRES (2 tables)
-
-CREATE TABLE genre (
-    genre_id SERIAL PRIMARY KEY,
-    genre_title VARCHAR(40) NOT NULL,
-    genre_description VARCHAR(255) NOT NULL
-);
-
-CREATE TABLE sub_genre (
-    sub_genre_title VARCHAR(40) NOT NULL,
-    sub_genre_description VARCHAR(255) NOT NULL,
-    parent_genre INT,
-    FOREIGN KEY (parent_genre) REFERENCES genre (genre_id),
-    PRIMARY KEY(parent_genre, sub_genre_title)
-);
-
 -- TAGS (9 tables)
 
 CREATE TABLE tag (
@@ -297,11 +349,10 @@ CREATE TABLE genre_tag(
 
 CREATE TABLE sub_genre_tag(
     tag_id INT,
-    sub_genre_title VARCHAR(40) NOT NULL,
-    parent_genre INT,
+    sub_genre_id INT,
     FOREIGN KEY (tag_id) REFERENCES tag (tag_id),
-    FOREIGN KEY (parent_genre,sub_genre_title) REFERENCES sub_genre (parent_genre,sub_genre_title)
-);
+    FOREIGN KEY (sub_genre_id) REFERENCES sub_genre (sub_genre_id)
+  );
 
 -- TRIGGERS
 
