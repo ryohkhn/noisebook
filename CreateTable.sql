@@ -14,7 +14,7 @@ DROP TABLE
 
 CREATE TABLE musician (
     musician_id SERIAL PRIMARY KEY,
-    name VARCHAR(40) NOT NULL
+    artist_name VARCHAR(40) NOT NULL
 );
 
 CREATE TABLE music_group (
@@ -45,7 +45,6 @@ CREATE TABLE people (
     last_name VARCHAR(40) NOT NULL,
     birth_date DATE NOT NULL,
     sexe CHARACTER NOT NULL,
-    verified_musician BOOLEAN NOT NULL DEFAULT false,
     FOREIGN KEY (user_id) REFERENCES users (user_id),
     CHECK (birth_date <= (CURRENT_DATE - INTERVAL '13 years')),
     CHECK (sexe IN ('M', 'F', 'O'))
@@ -66,6 +65,13 @@ CREATE TABLE organizers (
     organizer_name VARCHAR(40) NOT NULL,
     location VARCHAR(50) NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users (user_id)
+);
+
+CREATE TABLE link_people_musician (
+    person_id INT,
+    musician_id INT,
+    FOREIGN KEY (person_id) REFERENCES people(person_id),
+    FOREIGN KEY (musician_id) REFERENCES musician(musician_id)
 );
 
 -- FOLLOW AND FRIENDSHIP RELATIONSHIP (2 tables)
