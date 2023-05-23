@@ -1,0 +1,26 @@
+place_id,place_name,address,city,country,exterior,max_capacity
+1,Olympic Stadium,15 Montjuic St.,Barcelona,Spain,TRUE,60000
+2,Wembley Stadium,Wembley,London,UK,TRUE,90000
+3,Staples Center,1111 S Figueroa St,Los Angeles,USA,FALSE,21000
+4,MSG,4 Pennsylvania Plaza,New York,USA,FALSE,20000
+5,Allianz Arena,Werner-Heisenberg-Allee 25,Munich,Germany,TRUE,75000
+6,Old Trafford,Sir Matt Busby Way,Manchester,UK,TRUE,74000
+7,Camp Nou,C. d'Arístides Maillol,Barcelona,Spain,TRUE,99354
+8,Santiago Bernabeu,Avenida de Concha Espina 1,Madrid,Spain,TRUE,81044
+9,Anfield,Anfield Road,Liverpool,UK,TRUE,54074
+10,Eithad Stadium,Ashton New Rd,Manchester,UK,TRUE,55017
+11,Emirates Stadium,Hornsey Rd,London,UK,TRUE,60260
+12,Etihad Stadium,Landsdowne Road,Dublin,Ireland,TRUE,51700
+13,Suncorp Stadium,40 Castlemaine St,Brisbane,Australia,TRUE,52500
+14,Mercedes-Benz Stadium,1 AMB Drive NW,Atlanta,USA,TRUE,71000
+15,Fenway Park,4 Yawkey Way,Boston,USA,FALSE,37755
+16,Yankee Stadium,1 E 161st St,New York,USA,TRUE,54291
+17,Dodger Stadium,1000 Vin Scully Ave,Los Angeles,USA,TRUE,56000
+18,Luzhniki Stadium,Luzhnetskaya embankment 24,Moscow,Russia,TRUE,81000
+19,Estadio Azteca,Calz. de Tlalpan 3465,Mexico City,Mexico,TRUE,87000
+20,Maracanã Stadium,Av. Pres. Castelo Branco,Rio de Janeiro,Brazil,TRUE,78838
+21,FNB Stadium,Nasrec Rd,Johannesburg,South Africa,TRUE,94736
+22,San Siro,Via Piccolomini 5,Milan,Italy,TRUE,80018
+23,Stade de France,Saint-Denis,Paris,France,TRUE,81338
+24,Rod Laver Arena,Batman Ave,Melbourne,Australia,FALSE,15000
+25,National Stadium,1 Stadium Dr,Singapore,Singapore,TRUE,55000

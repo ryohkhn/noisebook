@@ -1,0 +1,56 @@
+DONE:
+users(user_id, username, password, email, bio)
+people(person_id, user_id*, first_name, last_name, birth_date, sex)
+groups(group_id, user_id*, music_group_id*, group_name)
+organizers(organizer_id, user_id*, organizer_name, location)
+genre(genre_id, genre_title, genre_description)
+sub_genre(sub_genre_id, sub_genre_title, sub_genre_description, parent_genre*)
+place(place_id, place_name, address, city, country, exterior, max_capacity)
+
+TO REVIEW:
+music_group
+musician
+track
+
+TODO:
+
+link_people_musician
+link_musician_music_group
+
+follows
+friendship
+
+playlist
+musician_plays_track
+music_group_plays_track
+
+future_concert
+finished_concert
+future_concert_musicians_lineup
+future_concert_music_group_lineup
+finished_concert_musicians_lineup
+finished_concert_music_group_lineup
+organizers_announce_concert
+future_concert_genre
+future_concert_sub_genre
+finished_concert_genre
+finished_concert_sub_genre
+
+review
+group_review
+track_review
+place_review
+concert_review
+
+post
+media
+
+tag
+post_tag
+review_tag
+future_concert_tag
+inished_concert_tag
+place_tag
+music_group_tag
+genre_tag
+sub_genre_tag
