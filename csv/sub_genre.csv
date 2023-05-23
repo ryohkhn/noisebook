@@ -1,0 +1,21 @@
+sub_genre_id,sub_genre_title,sub_genre_description,parent_genre
+1,"Delta Blues","One of the earliest-known styles of blues music.",1
+2,"Military March","Sub-genre characterized by strong, regular rhythm.",2
+3,"Nursery Rhymes","Simple and catchy melodies for children.",3
+4,"Symphony","Long musical composition for orchestra.",4
+5,"Trance","Sub-genre of electronic music with repetitive arrangements.",5
+6,"Country Blues","Early form of American blues.",6
+7,"Psychedelic Soul","Blend of soul music with psychedelic rock.",7
+8,"Rap","Vocal style where the artist speaks rhythmically.",8
+9,"Bebop","Style of jazz characterized by fast tempo and improvisation.",9
+10,"Salsa","Sub-genre of Latin music.",10
+11,"Audio Drama","Non-musical audio performance.",11
+12,"Pop Rock","Genre that combines elements of pop and rock music.",12
+13,"Dub","Sub-genre of reggae focusing on rhythm.",13
+14,"Hard Rock","Sub-genre of rock known for heavy use of aggressive vocals.",14
+15,"Musical","Form of theatrical performance combining songs, spoken dialogue.",15
+16,"Bluegrass","Country sub-genre originating from Appalachia.",16
+17,"Neo-Soul","A style of music that incorporates R&B, hip-hop, and traditional soul music.",17
+18,"Contemporary Gospel","Modern form of Christian music that updates traditional gospel styles.",18
+19,"Nu-Disco","A 21st-century dance music genre associated with a renewed interest in 1970s and early 1980s disco.",19
+20,"Heavy Metal","A genre of rock music that includes a heavy emphasis on speed and precision.",20

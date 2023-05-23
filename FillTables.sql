@@ -5,3 +5,5 @@
 \copy people FROM 'csv/people.csv' WITH (FORMAT csv, HEADER true);
 \copy groups FROM 'csv/groups.csv' WITH (FORMAT csv, HEADER true);
 \copy organizers FROM 'csv/organizers.csv' WITH (FORMAT csv, HEADER true);
+\copy genre FROM 'csv/genre.csv' WITH (FORMAT csv, HEADER true);
+\copy sub_genre FROM 'csv/sub_genre.csv' WITH (FORMAT csv, HEADER true);

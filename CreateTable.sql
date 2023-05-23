@@ -8,8 +8,10 @@ DROP TABLE
     place, future_concert, finished_concert,
     future_concert_genre, finished_concert_genre,
     future_concert_sub_genre, finished_concert_sub_genre,
+    future_concert_musicians_lineup, future_concert_music_group_lineup,
+    finished_concert_musicians_lineup, finished_concert_music_group_lineup,
     group_review, track_review, place_review,
-    concert_review, post, media, link_people_musician,
+    concert_review, post, media,
     tag, post_tag, review_tag, future_concert_tag,
     finished_concert_tag, place_tag, music_group_tag,
     genre_tag, sub_genre_tag, review,
@@ -206,6 +208,34 @@ CREATE TABLE finished_concert (
     CHECK(attendance >= 0)
 );
 
+CREATE TABLE future_concert_musicians_lineup (
+    musician_id INT,
+    concert_id INT,
+    FOREIGN KEY (musician_id) REFERENCES musician (musician_id),
+    FOREIGN KEY (concert_id) REFERENCES future_concert (concert_id)
+);
+
+CREATE TABLE future_concert_music_group_lineup (
+    music_group_id INT,
+    concert_id INT,
+    FOREIGN KEY (music_group_id) REFERENCES music_group (music_group_id),
+    FOREIGN KEY (concert_id) REFERENCES future_concert (concert_id)
+);
+
+CREATE TABLE finished_concert_musicians_lineup (
+    musician_id INT,
+    concert_id INT,
+    FOREIGN KEY (musician_id) REFERENCES musician (musician_id),
+    FOREIGN KEY (concert_id) REFERENCES finished_concert (concert_id)
+);
+
+CREATE TABLE finished_concert_music_group_lineup (
+    music_group_id INT,
+    concert_id INT,
+    FOREIGN KEY (music_group_id) REFERENCES music_group (music_group_id),
+    FOREIGN KEY (concert_id) REFERENCES finished_concert (concert_id)
+);
+
 CREATE TABLE organizers_announce_concert (
     organizer_id INT,
     concert_id INT,
@@ -390,6 +420,7 @@ FOR EACH ROW
 EXECUTE FUNCTION check_user_playlist_limit();
 
 -- TRIGGER TO VERIFY THAT A FINISHED CONCERT EXISTED IN THE FUTURE CONCERT TABLE
+-- TODO UPDATE TRIGGER
 CREATE OR REPLACE FUNCTION check_concert_data()
 RETURNS TRIGGER AS $$
 DECLARE
