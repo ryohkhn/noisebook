@@ -13,3 +13,5 @@
 \copy link_people_musician FROM 'csv/link_people_musician.csv' WITH (FORMAT csv, HEADER true);
 \copy music_group_plays_track FROM 'csv/music_group_plays_track.csv' WITH (FORMAT csv, HEADER true);
 \copy musician_plays_track FROM 'csv/musician_plays_track.csv' WITH (FORMAT csv, HEADER true);
+\copy follows FROM 'csv/follows.csv' WITH (FORMAT csv, HEADER true);
+\copy friendship FROM 'csv/friendship.csv' WITH (FORMAT csv, HEADER true);

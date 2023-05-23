@@ -21,18 +21,19 @@ group_review(review_id*, user_id*, group_id*)
 track_review(review_id*, user_id*, track_id*)
 place_review(review_id*, user_id*, place_id*)
 
-
-TODO:
-
-link_people_musician
-link_musician_music_group
+musician_plays_track(musician_id*, track_id*)
+music_group_plays_track(music_group_id*, track_id*)
 
 follows(follower_id*, followed_id*)
 friendship(user1_id*, user2_id*)
 
+TODO:
+
+
+link_people_musician
+link_musician_music_group
+
 playlist
-musician_plays_track
-music_group_plays_track
 
 future_concert
 finished_concert
