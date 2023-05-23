@@ -279,7 +279,7 @@ CREATE TABLE finished_concert_sub_genre(
 
 CREATE TABLE review (
     review_id SERIAL PRIMARY KEY,
-    review_timestamp TIME NOT NULL,
+    review_timestamp TIMESTAMP NOT NULL,
     review_grade INT NOT NULL,
     review_comment VARCHAR(255) NOT NULL,
     CHECK (review_grade >= 0 AND review_grade <= 10)
@@ -349,56 +349,64 @@ CREATE TABLE post_tag(
     tag_id INT,
     post_id INT,
     FOREIGN KEY (tag_id) REFERENCES tag (tag_id),
-    FOREIGN KEY (post_id) REFERENCES post (post_id)
+    FOREIGN KEY (post_id) REFERENCES post (post_id),
+    PRIMARY KEY(tag_id, post_id)
 );
 
 CREATE TABLE review_tag(
     tag_id INT,
     review_id INT,
     FOREIGN KEY (tag_id) REFERENCES tag (tag_id),
-    FOREIGN KEY (review_id) REFERENCES review (review_id)
+    FOREIGN KEY (review_id) REFERENCES review (review_id),
+    PRIMARY KEY(tag_id, review_id)
 );
 
 CREATE TABLE future_concert_tag(
     tag_id INT,
     concert_id INT,
     FOREIGN KEY (tag_id) REFERENCES tag (tag_id),
-    FOREIGN KEY (concert_id) REFERENCES future_concert (concert_id)
+    FOREIGN KEY (concert_id) REFERENCES future_concert (concert_id),
+    PRIMARY KEY(tag_id, concert_id)
 );
 
 CREATE TABLE finished_concert_tag(
     tag_id INT,
     concert_id INT,
     FOREIGN KEY (tag_id) REFERENCES tag (tag_id),
-    FOREIGN KEY (concert_id) REFERENCES finished_concert (concert_id)
+    FOREIGN KEY (concert_id) REFERENCES finished_concert (concert_id),
+    PRIMARY KEY(tag_id, concert_id)
 );
 
 CREATE TABLE place_tag(
     tag_id INT,
     place_id INT,
     FOREIGN KEY (tag_id) REFERENCES tag (tag_id),
-    FOREIGN KEY (place_id) REFERENCES place (place_id)
+    FOREIGN KEY (place_id) REFERENCES place (place_id),
+    PRIMARY KEY(tag_id, place_id)
 );
 
 CREATE TABLE music_group_tag(
     tag_id INT,
     group_id INT,
     FOREIGN KEY (tag_id) REFERENCES tag (tag_id),
-    FOREIGN KEY (group_id) REFERENCES music_group (music_group_id)
+    FOREIGN KEY (group_id) REFERENCES music_group (music_group_id),
+    PRIMARY KEY(tag_id, group_id)
 );
 
 CREATE TABLE genre_tag(
     tag_id INT,
     genre_id INT,
     FOREIGN KEY (tag_id) REFERENCES tag (tag_id),
-    FOREIGN KEY (genre_id) REFERENCES genre (genre_id)
+    FOREIGN KEY (genre_id) REFERENCES genre (genre_id),
+    PRIMARY KEY(tag_id, genre_id)
 );
 
 CREATE TABLE sub_genre_tag(
     tag_id INT,
     sub_genre_id INT,
     FOREIGN KEY (tag_id) REFERENCES tag (tag_id),
-    FOREIGN KEY (sub_genre_id) REFERENCES sub_genre (sub_genre_id)
+    FOREIGN KEY (sub_genre_id) REFERENCES sub_genre (sub_genre_id),
+    PRIMARY KEY(tag_id, sub_genre_id)
   );
 
 -- TRIGGERS

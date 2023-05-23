@@ -3,22 +3,28 @@ users(user_id, username, password, email, bio)
 people(person_id, user_id*, first_name, last_name, birth_date, sex)
 groups(group_id, user_id*, music_group_id*, group_name)
 organizers(organizer_id, user_id*, organizer_name, location)
+
+music_group(music_group_id, group_name)
+musician(musician_id, artist_name)
+
 genre(genre_id, genre_title, genre_description)
 sub_genre(sub_genre_id, sub_genre_title, sub_genre_description, parent_genre*)
+
+link_musician_music_group(person_id*, musician_id*)
+link_people_musician(musician_id*, music_group_id*)
+
 place(place_id, place_name, address, city, country, exterior, max_capacity)
 
 TO REVIEW:
-music_group
-musician
-track
+track(track_id, title)
 
 TODO:
 
 link_people_musician
 link_musician_music_group
 
-follows
-friendship
+follows(follower_id*, followed_id*)
+friendship(user1_id*, user2_id*)
 
 playlist
 musician_plays_track
@@ -36,7 +42,7 @@ future_concert_sub_genre
 finished_concert_genre
 finished_concert_sub_genre
 
-review
+review(review_id, review_timestamp, review_grade, review_comment)
 group_review
 track_review
 place_review

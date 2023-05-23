@@ -8,3 +8,4 @@
 \copy genre FROM 'csv/genre.csv' WITH (FORMAT csv, HEADER true);
 \copy sub_genre FROM 'csv/sub_genre.csv' WITH (FORMAT csv, HEADER true);
 \copy place FROM 'csv/place.csv' WITH (FORMAT csv, HEADER true);
+\copy review FROM 'csv/review.csv' WITH (FORMAT csv, HEADER true);
