@@ -1,5 +1,5 @@
 DROP TABLE
-    IF EXISTS  genre, sub_genre,
+    IF EXISTS genre, sub_genre,
     musician, music_group, track,
     track_genre, track_sub_genre,
     users, people, groups, organizers,
@@ -9,7 +9,7 @@ DROP TABLE
     future_concert_genre, finished_concert_genre,
     future_concert_sub_genre, finished_concert_sub_genre,
     group_review, track_review, place_review,
-    concert_review, post, media,
+    concert_review, post, media, link_people_musician,
     tag, post_tag, review_tag, future_concert_tag,
     finished_concert_tag, place_tag, music_group_tag,
     genre_tag, sub_genre_tag, review,
@@ -488,3 +488,7 @@ CREATE TRIGGER concert_review_trigger
 BEFORE INSERT ON concert_review
 FOR EACH ROW
 EXECUTE PROCEDURE verify_unique_review();
+
+
+
+-- END
