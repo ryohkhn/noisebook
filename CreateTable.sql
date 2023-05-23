@@ -34,7 +34,7 @@ CREATE TABLE users (
     username VARCHAR(40) NOT NULL UNIQUE,
     password VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL,
-    bio VARCHAR(255) NOT NULL,
+    bio VARCHAR(255),
     CHECK (email LIKE '%@%.%' AND email NOT LIKE '%@%@%' AND email NOT LIKE '%..%')
 );
 
@@ -44,9 +44,11 @@ CREATE TABLE people (
     first_name VARCHAR(40) NOT NULL,
     last_name VARCHAR(40) NOT NULL,
     birth_date DATE NOT NULL,
+    sexe CHARACTER NOT NULL,
     verified_musician BOOLEAN NOT NULL DEFAULT false,
     FOREIGN KEY (user_id) REFERENCES users (user_id),
-    CHECK (birth_date <= (CURRENT_DATE - INTERVAL '13 years'))
+    CHECK (birth_date <= (CURRENT_DATE - INTERVAL '13 years')),
+    CHECK (sexe IN ('M', 'F', 'O'))
 );
 
 CREATE TABLE groups (
@@ -231,7 +233,7 @@ CREATE TABLE sub_genre (
     PRIMARY KEY(parent_genre, sub_genre_title)
 );
 
--- TAGS (8 tables)
+-- TAGS (9 tables)
 
 CREATE TABLE tag (
     tag_id SERIAL PRIMARY KEY,
@@ -297,7 +299,7 @@ CREATE TABLE sub_genre_tag(
 
 -- TRIGGERS
 
--- TRIGGER TO VERIFY THAT A USER ONLY HAVE 10 PLAYLISTS
+-- TRIGGER TO VERIFY THAT A USER ONLY HAS 10 PLAYLISTS OR LESS
 CREATE OR REPLACE FUNCTION check_user_playlist_limit()
 RETURNS TRIGGER AS $$
 BEGIN
