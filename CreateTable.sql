@@ -291,7 +291,8 @@ CREATE TABLE group_review (
     group_id INT,
     FOREIGN KEY (review_id) REFERENCES review (review_id),
     FOREIGN KEY (user_id) REFERENCES users (user_id),
-    FOREIGN KEY (group_id) REFERENCES groups (group_id)
+    FOREIGN KEY (group_id) REFERENCES groups (group_id),
+    PRIMARY KEY (review_id, user_id, group_id)
 );
 
 CREATE TABLE track_review (
@@ -300,7 +301,8 @@ CREATE TABLE track_review (
     track_id INT,
     FOREIGN KEY (review_id) REFERENCES review (review_id),
     FOREIGN KEY (user_id) REFERENCES users (user_id),
-    FOREIGN KEY (track_id) REFERENCES track (track_id)
+    FOREIGN KEY (track_id) REFERENCES track (track_id),
+    PRIMARY KEY (review_id, user_id, track_id)
 );
 
 CREATE TABLE place_review (
@@ -309,7 +311,8 @@ CREATE TABLE place_review (
     place_id INT,
     FOREIGN KEY (review_id) REFERENCES review (review_id),
     FOREIGN KEY (user_id) REFERENCES users (user_id),
-    FOREIGN KEY (place_id) REFERENCES place (place_id)
+    FOREIGN KEY (place_id) REFERENCES place (place_id),
+    PRIMARY KEY (review_id, user_id, place_id)
 );
 
 CREATE TABLE concert_review (
@@ -318,7 +321,8 @@ CREATE TABLE concert_review (
     concert_id INT,
     FOREIGN KEY (review_id) REFERENCES review (review_id),
     FOREIGN KEY (user_id) REFERENCES users (user_id),
-    FOREIGN KEY (concert_id) REFERENCES finished_concert (concert_id)
+    FOREIGN KEY (concert_id) REFERENCES finished_concert (concert_id),
+    PRIMARY KEY (review_id, user_id, concert_id)
 );
 
 -- POSTS (2 tables)

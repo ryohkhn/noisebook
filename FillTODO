@@ -4,6 +4,7 @@ people(person_id, user_id*, first_name, last_name, birth_date, sex)
 groups(group_id, user_id*, music_group_id*, group_name)
 organizers(organizer_id, user_id*, organizer_name, location)
 
+track(track_id, title)
 music_group(music_group_id, group_name)
 musician(musician_id, artist_name)
 
@@ -15,8 +16,11 @@ link_people_musician(musician_id*, music_group_id*)
 
 place(place_id, place_name, address, city, country, exterior, max_capacity)
 
-TO REVIEW:
-track(track_id, title)
+review(review_id, review_timestamp, review_grade, review_comment)
+group_review(review_id*, user_id*, group_id*)
+track_review(review_id*, user_id*, track_id*)
+place_review(review_id*, user_id*, place_id*)
+
 
 TODO:
 
@@ -42,11 +46,7 @@ future_concert_sub_genre
 finished_concert_genre
 finished_concert_sub_genre
 
-review(review_id, review_timestamp, review_grade, review_comment)
-group_review
-track_review
-place_review
-concert_review
+concert_review(review_id*, user_id*, concert_id*)
 
 post
 media
