@@ -12,7 +12,9 @@ DROP TABLE
     concert_review, post, media,
     tag, post_tag, review_tag, future_concert_tag,
     finished_concert_tag, place_tag, music_group_tag,
-    genre_tag, sub_genre_tag, review CASCADE;
+    genre_tag, sub_genre_tag, review,
+    link_people_musician, link_musician_music_group,
+    organizers_announce_concert CASCADE;
 
 -- GENRES (2 tables)
 
@@ -103,11 +105,20 @@ CREATE TABLE organizers (
     FOREIGN KEY (user_id) REFERENCES users (user_id)
 );
 
+-- PEOPLE, GROUP AND MUSICIAN RELATIONSHIP (2 tables)
+
 CREATE TABLE link_people_musician (
     person_id INT,
     musician_id INT,
     FOREIGN KEY (person_id) REFERENCES people(person_id),
     FOREIGN KEY (musician_id) REFERENCES musician(musician_id)
+);
+
+CREATE TABLE link_musician_music_group (
+    musician_id INT,
+    music_group_id INT,
+    FOREIGN KEY (musician_id) REFERENCES musician(musician_id),
+    FOREIGN KEY (music_group_id) REFERENCES music_group(music_group_id)
 );
 
 -- FOLLOW AND FRIENDSHIP RELATIONSHIP (2 tables)
@@ -129,7 +140,6 @@ CREATE TABLE friendship (
     FOREIGN KEY (user2_id) REFERENCES users (user_id),
     CHECK(user1_id <> user2_id)
 );
-
 
 -- TRACKS AND PLAYLISTS (3 tables)
 
@@ -157,7 +167,7 @@ CREATE TABLE music_group_plays_track (
     PRIMARY KEY (music_group_id, track_id)
 );
 
--- CONCERTS AND PLACES (7 tables)
+-- CONCERTS AND PLACES (8 tables)
 
 CREATE TABLE place (
     place_id SERIAL PRIMARY KEY,
@@ -194,6 +204,13 @@ CREATE TABLE finished_concert (
     FOREIGN KEY (place_id) REFERENCES place (place_id),
     CHECK(ticket_price >= 0),
     CHECK(attendance >= 0)
+);
+
+CREATE TABLE organizers_announce_concert (
+    organizer_id INT,
+    concert_id INT,
+    FOREIGN KEY (organizer_id) REFERENCES organizers (organizer_id),
+    FOREIGN KEY (concert_id) REFERENCES future_concert (concert_id)
 );
 
 CREATE TABLE future_concert_genre(
