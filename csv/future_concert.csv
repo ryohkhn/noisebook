@@ -1,0 +1,11 @@
+concert_id, concert_name, concert_date, start_time, ticket_price, children_allowed, place_id
+1, "David Bowie Tribute", "2023-06-01", "20:00", 80, false, 6
+2, "Jazz Legends United", "2023-06-05", "19:00", 60, true, 8
+3, "Women of Rock", "2023-06-10", "18:30", 75, false, 2
+4, "80s Pop Revival", "2023-06-15", "19:30", 70, true, 1
+5, "Country Fest", "2023-06-20", "20:00", 50, true, 5
+6, "Punk Rock Showdown", "2023-06-25", "21:00", 90, false, 4
+7, "Hip Hop & R&B Night", "2023-06-30", "21:30", 80, false, 3
+8, "Classical Evening", "2023-07-05", "19:00", 100, true, 7
+9, "Indie Rock Madness", "2023-07-10", "20:00", 65, false, 9
+10, "Latin Music Celebration", "2023-07-15", "18:00", 60, true, 10

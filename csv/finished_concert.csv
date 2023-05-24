@@ -1,0 +1,11 @@
+concert_id, concert_name, concert_date, start_time, ticket_price, children_allowed, attendance, place_id
+1, "Beatles One Night Only", "2023-01-01", "18:00:00", 150, true, 5000, 1
+2, "Stones Rock Out", "2023-02-15", "19:30:00", 120, true, 6000, 2
+3, "Floyd Light Spectacular", "2023-03-01", "20:00:00", 200, false, 7000, 3
+4, "Zeppelin Sky High", "2023-04-15", "18:00:00", 180, false, 4500, 4
+5, "Queen Rules the Night", "2023-05-01", "19:00:00", 175, true, 5500, 5
+6, "Nirvana In Memoriam", "2023-06-15", "18:30:00", 130, false, 6500, 6
+7, "Cure for the Night", "2023-07-01", "19:00:00", 110, true, 5000, 7
+8, "U2: The Best of", "2023-08-15", "20:00:00", 190, false, 6000, 8
+9, "Clash of the Titans", "2023-09-01", "18:30:00", 100, true, 4500, 9
+10, "Eagles: Legends Live", "2023-10-15", "19:00:00", 160, false, 6500, 10

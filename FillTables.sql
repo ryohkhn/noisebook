@@ -15,3 +15,9 @@
 \copy musician_plays_track FROM 'csv/musician_plays_track.csv' WITH (FORMAT csv, HEADER true);
 \copy follows FROM 'csv/follows.csv' WITH (FORMAT csv, HEADER true);
 \copy friendship FROM 'csv/friendship.csv' WITH (FORMAT csv, HEADER true);
+\copy future_concert FROM 'csv/future_concert.csv' WITH (FORMAT csv, HEADER true);
+\copy future_concert_music_group_lineup FROM 'csv/future_concert_music_group_lineup.csv' WITH (FORMAT csv, HEADER true);
+\copy future_concert_musicians_lineup FROM 'csv/future_concert_musicians_lineup.csv' WITH (FORMAT csv, HEADER true);
+\copy finished_concert FROM 'csv/finished_concert.csv' WITH (FORMAT csv, HEADER true);
+\copy finished_concert_music_group_lineup FROM 'csv/finished_concert_music_group_lineup.csv' WITH (FORMAT csv, HEADER true);
+\copy finished_concert_musicians_lineup FROM 'csv/finished_concert_musicians_lineup.csv' WITH (FORMAT csv, HEADER true);
