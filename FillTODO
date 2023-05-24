@@ -30,22 +30,22 @@ friendship(user1_id*, user2_id*)
 TODO:
 
 
-link_people_musician
-link_musician_music_group
+[X] link_people_musician
+[X] link_musician_music_group
 
 playlist
 
-future_concert
-finished_concert
-future_concert_musicians_lineup
-future_concert_music_group_lineup
-finished_concert_musicians_lineup
-finished_concert_music_group_lineup
+[X] future_concert
+[?] finished_concert
+[X] future_concert_musicians_lineup
+[X] future_concert_music_group_lineup
+[?] finished_concert_musicians_lineup
+[?] finished_concert_music_group_lineup
 organizers_announce_concert
-future_concert_genre
-future_concert_sub_genre
-finished_concert_genre
-finished_concert_sub_genre
+[X] future_concert_genre
+[X] future_concert_sub_genre
+[?] finished_concert_genre
+[?] finished_concert_sub_genre
 
 concert_review(review_id*, user_id*, concert_id*)
 

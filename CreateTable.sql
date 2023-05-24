@@ -463,10 +463,10 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER check_concert_data
-BEFORE INSERT ON finished_concert
-FOR EACH ROW
-EXECUTE FUNCTION check_concert_data();
+-- CREATE TRIGGER check_concert_data
+-- BEFORE INSERT ON finished_concert
+-- FOR EACH ROW
+-- EXECUTE FUNCTION check_concert_data();
 
 -- TRIGGER TO VERIFY THAT A REVIEW IS UNIQUE
 CREATE OR REPLACE FUNCTION verify_unique_review() RETURNS TRIGGER AS $$

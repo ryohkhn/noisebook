@@ -18,6 +18,10 @@
 \copy future_concert FROM 'csv/future_concert.csv' WITH (FORMAT csv, HEADER true);
 \copy future_concert_music_group_lineup FROM 'csv/future_concert_music_group_lineup.csv' WITH (FORMAT csv, HEADER true);
 \copy future_concert_musicians_lineup FROM 'csv/future_concert_musicians_lineup.csv' WITH (FORMAT csv, HEADER true);
+\copy future_concert_genre FROM 'csv/future_concert_genre.csv' WITH (FORMAT csv, HEADER true);
+\copy future_concert_sub_genre FROM 'csv/future_concert_sub_genre.csv' WITH (FORMAT csv, HEADER true);
 \copy finished_concert FROM 'csv/finished_concert.csv' WITH (FORMAT csv, HEADER true);
 \copy finished_concert_music_group_lineup FROM 'csv/finished_concert_music_group_lineup.csv' WITH (FORMAT csv, HEADER true);
 \copy finished_concert_musicians_lineup FROM 'csv/finished_concert_musicians_lineup.csv' WITH (FORMAT csv, HEADER true);
+\copy finished_concert_genre FROM 'csv/finished_concert_genre.csv' WITH (FORMAT csv, HEADER true);
+\copy finished_concert_sub_genre FROM 'csv/finished_concert_sub_genre.csv' WITH (FORMAT csv, HEADER true);
