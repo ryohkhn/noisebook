@@ -41,10 +41,7 @@
 \copy sub_genre_tag FROM 'csv/sub_genre_tag.csv' WITH (FORMAT csv, HEADER true);
 \copy playlist FROM 'csv/playlist.csv' WITH (FORMAT csv, HEADER true);
 \copy playlist_track FROM 'csv/playlist_track.csv' WITH (FORMAT csv, HEADER true);
-
-
-
-
-
+\copy track_genre FROM 'csv/track_genre.csv' WITH (FORMAT csv, HEADER true);
+\copy track_sub_genre FROM 'csv/track_sub_genre.csv' WITH (FORMAT csv, HEADER true);
 
 -- END
