@@ -33,6 +33,10 @@ link_musician_music_group(musician_id*, music_group_id*)
 post(post_id, post_timestamp, post_content, user_id*)
 media(media_id, media_link, post_id*)
 
+post_tag(tag_id*, post_id*)
+review_tag(tag_id*, review_id*)
+place_tag(tag_id*, place_id*)
+
 TODO:
 
 playlist
@@ -53,15 +57,8 @@ concert_review(review_id*, user_id*, concert_id*)
 
 
 tag(tag_id, tag_content)
-post_tag(tag_id*, post_id*)
-review_tag(tag_id*, review_id)
-future_concert_tag(tag_id*, concert_id)
-finished_concert_tag(tag_id*, concert_id)
-place_tag(tag_id*, place_id)
-music_group_tag(tag_id*, group_id)
-genre_tag(tag_id*, genre_id)
-sub_genre_tag(tag_id*, sub_genre_id)
-
-
-
-media_id,media_link,post_id
+genre_tag(tag_id*, genre_id*)
+sub_genre_tag(tag_id*, sub_genre_id*)
+music_group_tag(tag_id*, group_id*)
+future_concert_tag(tag_id*, concert_id*)
+finished_concert_tag(tag_id*, concert_id*)

@@ -27,3 +27,7 @@
 \copy finished_concert_sub_genre FROM 'csv/finished_concert_sub_genre.csv' WITH (FORMAT csv, HEADER true);
 \copy post FROM 'csv/post.csv' WITH (FORMAT csv, HEADER true);
 \copy media FROM 'csv/media.csv' WITH (FORMAT csv, HEADER true);
+\copy tag FROM 'csv/tag.csv' WITH (FORMAT csv, HEADER true);
+\copy post_tag FROM 'csv/post_tag.csv' WITH (FORMAT csv, HEADER true);
+\copy review_tag FROM 'csv/review_tag.csv' WITH (FORMAT csv, HEADER true);
+\copy place_tag FROM 'csv/place_tag.csv' WITH (FORMAT csv, HEADER true);

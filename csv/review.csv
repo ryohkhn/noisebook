@@ -1,29 +1,29 @@
 review_id,review_timestamp,review_grade,review_comment
-1,2023-01-02 12:30:00,7,Very talented group!
+1,2023-01-02 12:30:00,7,Very talented group! #Talent
 2,2023-01-05 15:45:23,8,Loved the atmosphere when this group performs!
 3,2023-01-07 19:00:00,9,Impressive song-writing.
 4,2023-01-10 20:15:10,6,"Decent group, but they can still improve."
 5,2023-01-15 18:30:00,7,"Enjoyable songs, but nothing incredible."
 6,2023-01-20 21:00:00,5,Mediocre at best.
-7,2023-01-25 13:00:00,8,One of my favorite groups of all time!
+7,2023-01-25 13:00:00,8,One of my favorite groups of all time! #Favorite
 8,2023-02-01 19:00:00,8,"Great venue, but public transport access could be improved."
-9,2023-02-05 15:45:23,4,Not worth the ticket price. Frustrating experience.
+9,2023-02-05 15:45:23,4,Not worth the ticket price. Frustrating experience. #NotWorthIt
 10,2023-02-10 19:30:00,10,This was the best event I've been to in years!
 11,2023-02-15 18:45:00,8,Great event but the food was overpriced.
 12,2023-02-20 19:15:00,6,"The event was okay, but the seats were uncomfortable."
 13,2023-02-25 20:00:00,10,Amazing experience! Can't wait for the next event.
-14,2023-03-02 16:00:00,9,Incredible event! Had an amazing time.
+14,2023-03-02 16:00:00,9,Incredible event! Had an amazing time. #Incredible #Awesome
 15,2023-03-05 13:00:00,8,This track has a catchy melody and brilliant instrumentals.
 16,2023-03-10 17:30:00,7,Somewhat predictable and could use a little more originality.
 17,2023-03-15 20:00:00,10,An absolute masterpiece! Hits me right in the feels every time I listen to it.
 18,2023-03-20 14:00:00,6,"This song has a nice beat to it, but the lyrics are quite clichéd."
 19,2023-03-25 18:00:00,5,The melody is alright but the lyrics and vocals are lacking.
-20,2023-04-01 19:00:00,8,"The melody is catchy, and the lyrics have some depth. "
+20,2023-04-01 19:00:00,8,"The melody is catchy, and the lyrics have some depth. #ILikeIt"
 21,2023-04-05 20:00:00,9,This is an outstanding song with a powerful message. 
-22,2023-04-10 13:30:00,7,"Good place, but not enough seats."
-23,2023-04-15 19:00:00,8,Impressive venue. A bit chilly though.
+22,2023-04-10 13:30:00,7,"Good place, but not enough seats. #Tired"
+23,2023-04-15 19:00:00,8,Impressive venue. A bit chilly though. #GoodView #Cold
 24,2023-04-20 20:30:00,8,"Great venue, but public transport access could be improved."
 25,2023-04-25 16:00:00,6,The view was mediocre. Expected better.
-26,2023-04-30 18:30:00,7,"Good, but the lineup for restrooms was too long."
-27,2023-05-05 17:00:00,10,Fantastic experience! Will definitely return.
-28,2023-05-10 20:00:00,9,"Excellent location, friendly staff, overall great experience."
+26,2023-04-30 18:30:00,7,"Good, but the lineup for restrooms was too long. #Waiting"
+27,2023-05-05 17:00:00,10,#Fantastic experience! Will definitely return.
+28,2023-05-10 20:00:00,9,"Excellent location, friendly staff, overall great experience. #FriendlyStaff"
