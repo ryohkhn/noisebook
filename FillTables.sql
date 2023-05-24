@@ -25,3 +25,5 @@
 \copy finished_concert_musicians_lineup FROM 'csv/finished_concert_musicians_lineup.csv' WITH (FORMAT csv, HEADER true);
 \copy finished_concert_genre FROM 'csv/finished_concert_genre.csv' WITH (FORMAT csv, HEADER true);
 \copy finished_concert_sub_genre FROM 'csv/finished_concert_sub_genre.csv' WITH (FORMAT csv, HEADER true);
+\copy post FROM 'csv/post.csv' WITH (FORMAT csv, HEADER true);
+\copy media FROM 'csv/media.csv' WITH (FORMAT csv, HEADER true);
