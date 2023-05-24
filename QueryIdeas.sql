@@ -56,7 +56,7 @@ SELECT place_id, place_name FROM place
 WHERE NOT EXISTS(
   SELECT place_id FROM finished_concert
   WHERE place_id = p.place_id
-)
+);
 
 
 -- deux agrégats nécessitant GROUP BY et HAVING ;
@@ -112,11 +112,20 @@ SELECT group_name, concert_date, max_capacity, rank
 FROM monthly_ranks
 WHERE rank <= 3;
 
+
+-- Find the number of concerts organized by each organizer.
+-- — une jointure externe (LEFT JOIN, RIGHT JOIN ou FULL JOIN) ;
+SELECT o.ortganizateur_id, o.ortganizateur_name, COUNT(fc.concert_id) + COUNT(fnc.concert_id) AS concert_count
+FROM organizer o
+LEFT JOIN finished_concert fc ON o.user_id = fc.place_id
+LEFT JOIN future_concert fnc ON o.user_id = fnc.place_id
+GROUP BY o.ortganizateur_id, o.ortganizateur_name;
+
+
 -- deux requêtes équivalentes exprimant une condition de totalité,
 -- l’une avec des sous requêtes corrélées et
 -- l’autre avec de l’agrégation ;
 -- Trouver tous les groupes de musique qui ont organisé plus de 10 concerts.
-
 SELECT m.group_name
 FROM music_group m
 JOIN future_concert_music_group_lineup c ON m.music_group_id = c.music_group_id
@@ -131,6 +140,7 @@ WHERE (
   WHERE m.music_group_id = c.music_group_id
 ) >= 1;
 
+
 -- deux requêtes qui renverraient le même résultat
 -- si vos tables ne contenaient pas de nulls, 
 -- mais qui renvoient des résultats différents ici
@@ -142,5 +152,16 @@ FROM users
 WHERE bio IS NOT NULL;
 
 
+-- Find the the series of follows from user 1
+-- - une requête récursive ;
+WITH RECURSIVE following_hierarchy AS (
+    SELECT followed_id AS user_id,1 AS level,follower_id
+    FROM follows WHERE follower_id = 1
+    UNION
+    SELECT f.followed_id AS user_id,fh.level + 1 AS level,f.follower_id
+    FROM follows f JOIN following_hierarchy fh ON f.follower_id = fh.user_id)
+SELECT u.user_id,u.username,fh.level,fh.follower_id
+FROM following_hierarchy fh
+JOIN users u ON u.user_id = fh.user_id;
 
 -- END
