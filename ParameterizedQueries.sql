@@ -11,3 +11,9 @@ FROM following_hierarchy fh
 JOIN users u ON u.user_id = fh.user_id;
 
 EXECUTE following_hierarchy(1);
+
+
+SELECT v.concert_id, v.concert_name, v.concert_date, v.start_time, v.genre_title, v.sub_genre_title
+FROM upcoming_concerts_view v
+JOIN place p ON v.place_id = p.place_id
+WHERE p.city = [city_name];

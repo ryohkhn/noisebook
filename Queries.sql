@@ -175,6 +175,19 @@ FROM music_group m JOIN link_musician_music_group l ON m.music_group_id = l.musi
 ORDER BY m.music_group_id;
 
 
--- 15 requêtes
+-- Retrieve all upcoming concerts with their corresponding genres and sub-genres.
+DROP VIEW upcoming_concerts_view;
+
+CREATE VIEW upcoming_concerts_view AS
+SELECT fc.concert_id, fc.concert_name, fc.concert_date, fc.start_time, g.genre_title, sg.sub_genre_title
+FROM future_concert fc
+LEFT JOIN future_concert_genre fcg ON fc.concert_id = fcg.concert_id
+LEFT JOIN future_concert_sub_genre fcsg ON fc.concert_id = fcsg.concert_id
+LEFT JOIN genre g ON fcg.genre_id = g.genre_id
+LEFT JOIN sub_genre sg ON fcsg.sub_genre_id = sg.sub_genre_id;
+
+SELECT * FROM upcoming_concerts_view;
+
+-- 16 requêtes
 
 -- END
