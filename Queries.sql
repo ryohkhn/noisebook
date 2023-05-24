@@ -157,7 +157,7 @@ SELECT u.user_id,u.username,fh.level,fh.follower_id
 FROM following_hierarchy fh
 JOIN users u ON u.user_id = fh.user_id;
 
--- Autres requêtes
+-- Other requests
 
 -- Users who have given more than 5 reviews to finished concerts with an average review grade greater than 4.
 SELECT cr.user_id, u.username, COUNT(cr.concert_id) AS review_count, AVG(r.review_grade) AS avg_review_grade
@@ -207,6 +207,13 @@ GROUP BY genre_title
 ORDER BY MAX(frequency) DESC
 LIMIT 1;
 
--- 17 requêtes
+
+-- Find the concert with the lowest ticket price
+SELECT concert_name, concert_date, p.place_name AS concert_location,ticket_price
+FROM future_concert fc
+JOIN place p ON p.place_id = fc.place_id
+WHERE ticket_price = (SELECT MIN(ticket_price) FROM future_concert);
+
+-- 18 requêtes
 
 -- END
