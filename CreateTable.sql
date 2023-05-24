@@ -438,36 +438,6 @@ BEFORE INSERT ON playlist
 FOR EACH ROW
 EXECUTE FUNCTION check_user_playlist_limit();
 
--- TRIGGER TO VERIFY THAT A FINISHED CONCERT EXISTED IN THE FUTURE CONCERT TABLE
--- TODO UPDATE TRIGGER
-CREATE OR REPLACE FUNCTION check_concert_data()
-RETURNS TRIGGER AS $$
-DECLARE
-    original_concert future_concert%ROWTYPE;
-BEGIN
-    SELECT INTO original_concert
-        *
-    FROM future_concert
-    WHERE concert_name = NEW.concert_name
-    AND concert_date = NEW.concert_date
-    AND start_time = NEW.start_time
-    AND place_id = NEW.place_id;
-
-    IF original_concert IS NULL OR
-        original_concert.ticket_price != NEW.ticket_price OR
-        original_concert.children_allowed != NEW.children_allowed THEN
-        RAISE EXCEPTION 'Concert data does not match future_concert table';
-    END IF;
-
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-
--- CREATE TRIGGER check_concert_data
--- BEFORE INSERT ON finished_concert
--- FOR EACH ROW
--- EXECUTE FUNCTION check_concert_data();
-
 -- TRIGGER TO VERIFY THAT A REVIEW IS UNIQUE
 CREATE OR REPLACE FUNCTION verify_unique_review() RETURNS TRIGGER AS $$
 DECLARE
