@@ -1,4 +1,5 @@
 -- une requête qui porte sur au moins trois tables ;
+-- todo add reviews
 -- Top 5 tracks with highest average grade, with at least 5 reviews, and their max grade.
 SELECT AVG(r.review_grade) AS average_grade, MAX(r.review_grade) as max_grade, t.track_id, t.title
 FROM review r JOIN track_review tr ON r.review_id = tr.review_id
@@ -21,9 +22,9 @@ WHERE f1.follower_id  < f2.follower_id;
 --Find the top 3 cities with the highest number of concerts.
 SELECT p.city, COUNT(*) AS concert_count
 FROM (
-  SELECT concert_id, place_id FROM finished_concert
-  UNION ALL
-  SELECT concert_id, place_id FROM future_concert
+    SELECT concert_id, place_id FROM finished_concert
+    UNION ALL
+    SELECT concert_id, place_id FROM future_concert
 ) AS all_concerts
 JOIN place p ON all_concerts.place_id = p.place_id
 GROUP BY p.city
@@ -35,12 +36,12 @@ LIMIT 3;
 -- todo add a lot more group followers
 -- Music groups that have an above average number of followers.
 WITH average_followers AS(
-  SELECT AVG(sub.follower_count) as average
-  FROM (
-      SELECT COUNT(*) AS follower_count
-      FROM follows
-      GROUP BY followed_id
-  ) avg
+    SELECT AVG(avg.follower_count) as average
+    FROM (
+        SELECT COUNT(*) AS follower_count
+        FROM follows
+        GROUP BY followed_id
+    ) avg
 )
 SELECT g.group_name, COUNT(f.follower_id) AS follower_count
 FROM groups g
@@ -52,15 +53,14 @@ HAVING COUNT(f.follower_id) >= (SELECT average FROM average_followers);
 
 -- une sous-requête dans le WHERE ;
 -- Find the places that have not yet hosted any concert.
-SELECT place_id, place_name FROM place
+SELECT place_id, place_name FROM place p
 WHERE NOT EXISTS(
-  SELECT place_id FROM finished_concert
-  WHERE place_id = p.place_id
+    SELECT place_id FROM finished_concert
+    WHERE place_id = p.place_id
 );
 
 
 -- deux agrégats nécessitant GROUP BY et HAVING ;
--- todo add more concerts
 -- List the music groups that have performed in more than three different cities.
 SELECT m.group_name, l.music_group_id, COUNT(DISTINCT place_id) as place_number
 FROM finished_concert f
@@ -71,13 +71,12 @@ HAVING COUNT(DISTINCT place_id) >= 3;
 
 
 -- une requête impliquant le calcul de deux agrégats
--- todo add another concert for a group so they have multiple
 -- Find the music group with the highest average number of attendees per concert.
 WITH average_attendance_per_group AS(
-  SELECT AVG(f.attendance) AS average_attendance
-  FROM finished_concert f
-  JOIN finished_concert_music_group_lineup l ON f.concert_id = l.concert_id
-  GROUP BY l.music_group_id
+    SELECT AVG(f.attendance) AS average_attendance
+    FROM finished_concert f
+    JOIN finished_concert_music_group_lineup l ON f.concert_id = l.concert_id
+    GROUP BY l.music_group_id
 )
 SELECT MAX(average_attendance) FROM average_attendance_per_group;
 
@@ -95,18 +94,18 @@ LEFT JOIN place p ON c.place_id = p.place_id;
 -- une requête utilisant du fenêtrage
 -- Find the top 3 music groups playing in concerts with the maximum capacity each month in 2023.
 WITH monthly_ranks AS (
-  SELECT
-    m.group_name,
-    c.concert_date,
-    p.max_capacity,
+    SELECT
+        m.group_name,
+        c.concert_date,
+        p.max_capacity,
     RANK() OVER(PARTITION BY DATE_TRUNC('month', c.concert_date) ORDER BY p.max_capacity DESC) as rank
-  FROM
-    music_group m
+    FROM
+        music_group m
     JOIN future_concert_music_group_lineup fl ON m.music_group_id = fl.music_group_id
     JOIN future_concert c ON fl.concert_id = c.concert_id
     JOIN place p ON p.place_id = c.place_id
-  WHERE
-    DATE_PART('year', c.concert_date) = 2023
+    WHERE
+        DATE_PART('year', c.concert_date) = 2023
 )
 SELECT group_name, concert_date, max_capacity, rank
 FROM monthly_ranks
