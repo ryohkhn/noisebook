@@ -67,15 +67,3 @@ sub_genre_tag(tag_id*, sub_genre_id*)
 music_group_tag(tag_id*, group_id*)
 future_concert_tag(tag_id*, concert_id*)
 finished_concert_tag(tag_id*, concert_id*)
-post_tag(tag_id*, post_id*)
-review_tag(tag_id*, review_id)
-future_concert_tag(tag_id*, concert_id)
-finished_concert_tag(tag_id*, concert_id)
-place_tag(tag_id*, place_id)
-music_group_tag(tag_id*, group_id)
-genre_tag(tag_id*, genre_id)
-sub_genre_tag(tag_id*, sub_genre_id)
-
-
-media_id,media_link,post_id
->>>>>>> c7e0566 (remove concerts triggers, add relationnal schema for done tables)
