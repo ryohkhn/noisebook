@@ -9,6 +9,9 @@
 \copy sub_genre FROM 'csv/sub_genre.csv' WITH (FORMAT csv, HEADER true);
 \copy place FROM 'csv/place.csv' WITH (FORMAT csv, HEADER true);
 \copy review FROM 'csv/review.csv' WITH (FORMAT csv, HEADER true);
+\copy track_review FROM 'csv/track_review.csv' WITH (FORMAT csv, HEADER true);
+\copy group_review FROM 'csv/group_review.csv' WITH (FORMAT csv, HEADER true);
+\copy place_review FROM 'csv/place_review.csv' WITH (FORMAT csv, HEADER true);
 \copy link_musician_music_group FROM 'csv/link_musician_music_group.csv' WITH (FORMAT csv, HEADER true);
 \copy link_people_musician FROM 'csv/link_people_musician.csv' WITH (FORMAT csv, HEADER true);
 \copy music_group_plays_track FROM 'csv/music_group_plays_track.csv' WITH (FORMAT csv, HEADER true);
@@ -31,5 +34,17 @@
 \copy post_tag FROM 'csv/post_tag.csv' WITH (FORMAT csv, HEADER true);
 \copy review_tag FROM 'csv/review_tag.csv' WITH (FORMAT csv, HEADER true);
 \copy place_tag FROM 'csv/place_tag.csv' WITH (FORMAT csv, HEADER true);
+\copy future_concert_tag FROM 'csv/future_concert_tag.csv' WITH (FORMAT csv, HEADER true);
+\copy finished_concert_tag FROM 'csv/finished_concert_tag.csv' WITH (FORMAT csv, HEADER true);
+\copy music_group_tag FROM 'csv/music_group_tag.csv' WITH (FORMAT csv, HEADER true);
+\copy genre_tag FROM 'csv/genre_tag.csv' WITH (FORMAT csv, HEADER true);
+\copy sub_genre_tag FROM 'csv/sub_genre_tag.csv' WITH (FORMAT csv, HEADER true);
 \copy playlist FROM 'csv/playlist.csv' WITH (FORMAT csv, HEADER true);
 \copy playlist_track FROM 'csv/playlist_track.csv' WITH (FORMAT csv, HEADER true);
+
+
+
+
+
+
+-- END

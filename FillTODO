@@ -14,9 +14,6 @@ playlist_track(playlist_id*, track_id*)
 genre(genre_id, genre_title, genre_description)
 sub_genre(sub_genre_id, sub_genre_title, sub_genre_description, parent_genre*)
 
-link_musician_music_group(person_id*, musician_id*)
-link_people_musician(musician_id*, music_group_id*)
-
 place(place_id, place_name, address, city, country, exterior, max_capacity)
 
 review(review_id, review_timestamp, review_grade, review_comment)
@@ -36,35 +33,34 @@ link_musician_music_group(musician_id*, music_group_id*)
 post(post_id, post_timestamp, post_content, user_id*)
 media(media_id, media_link, post_id*)
 
-post_tag(tag_id*, post_id*)
-review_tag(tag_id*, review_id*)
-place_tag(tag_id*, place_id*)
-
 future_concert(concert_id,concert_name,concert_date,start_time,ticket_price,children_allowed,place_id*)
 finished_concert(concert_id, concert_name, concert_date, start_time, ticket_price, children_allowed, attendance, place_id*)
 
-future_concert_musicians_lineup(| musician_id*, concert_id*)
+future_concert_musicians_lineup(musician_id*, concert_id*)
 future_concert_music_group_lineup(music_group_id*, concert_id*)
 future_concert_genre(concert_id*, genre_id*)
 future_concert_sub_genre(concert_id*, sub_genre_id*)
 
+finished_concert_genre(concert_id*,genre_id*)
+finished_concert_sub_genre(concert_id*,sub_genre_id*)
 finished_concert_musicians_lineup(musician_id*, concert_id*)
 finished_concert_music_group_lineup(music_group_id*, concert_id*)
-finished_concert_genre(concert_id*, genre_id*)
-finished_concert_sub_genre(concert_id*, sub_genre_id*)
-
-TODO:
-
-
-organizers_announce_concert
-
-
-concert_review(review_id*, user_id*, concert_id*)
-
 
 tag(tag_id, tag_content)
+post_tag(tag_id*, post_id*)
+review_tag(tag_id*, review_id*)
+place_tag(tag_id*, place_id*)
 genre_tag(tag_id*, genre_id*)
 sub_genre_tag(tag_id*, sub_genre_id*)
 music_group_tag(tag_id*, group_id*)
 future_concert_tag(tag_id*, concert_id*)
 finished_concert_tag(tag_id*, concert_id*)
+
+
+TODO:
+
+organizers_announce_concert(organizer_id*, concert_id*)
+concert_review(review_id*, user_id*, concert_id*)
+
+track_genre
+track_sub_genre
