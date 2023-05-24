@@ -110,12 +110,12 @@ FROM monthly_ranks
 WHERE rank <= 3;
 
 
--- TODO changer cette requête
 -- Find the number of concerts organized by each organizer.
 -- — une jointure externe (LEFT JOIN, RIGHT JOIN ou FULL JOIN) ;
 SELECT o.organizer_id, o.organizer_name, COUNT(fc.concert_id) AS concert_count
 FROM organizers o
-LEFT JOIN finished_concert fc ON o.user_id = fc.place_id
+LEFT JOIN organizers_announce_concert oac ON oac.organizer_id = o.organizer_id
+LEFT JOIN finished_concert fc ON oac.concert_id = fc.concert_id
 GROUP BY o.organizer_id, o.organizer_name;
 
 
