@@ -139,7 +139,7 @@ WHERE (
 
 
 -- Deux requêtes qui renverraient le même résultat
--- si vos tables ne contenaient pas de nulls, 
+-- si vos tables ne contenaient pas de nulls,
 -- mais qui renvoient des résultats différents ici
 SELECT username, bio
 FROM users;
@@ -162,3 +162,13 @@ FROM following_hierarchy fh
 JOIN users u ON u.user_id = fh.user_id;
 
 -- Autres requêtes
+
+-- Users who have given more than 5 reviews to finished concerts with an average review grade greater than 4.
+SELECT cr.user_id, u.username, COUNT(cr.concert_id) AS review_count, AVG(r.review_grade) AS avg_review_grade
+FROM concert_review cr
+JOIN users u ON cr.user_id = u.user_id
+JOIN review r ON cr.review_id = r.review_id
+GROUP BY cr.user_id, u.username
+HAVING COUNT(r.review_id) >= 5 AND AVG(r.review_grade) > 4;
+
+-- END

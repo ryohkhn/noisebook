@@ -27,18 +27,23 @@ review_id,review_timestamp,review_grade,review_comment
 26,2023-04-30 18:30:00,7,"Good, but the lineup for restrooms was too long. #Waiting"
 27,2023-05-05 17:00:00,10,#Fantastic experience! Will definitely return.
 28,2023-05-10 20:00:00,9,"Excellent location, friendly staff, overall great experience. #FriendlyStaff"
-29,2023-05-15 17:00:00,9,"Beautiful lyrics that hit home. Instrumentals are quite moving as well."
-30,2023-05-20 13:30:00,7,"Good beat but the lyrics lacked originality."
+29,2023-05-15 17:00:00,9,Beautiful lyrics that hit home. Instrumentals are quite moving as well.
+30,2023-05-20 13:30:00,7,Good beat but the lyrics lacked originality.
 31,2023-05-25 21:00:00,5,"I found the track to be a bit repetitive, it needs more variation."
 32,2023-05-30 19:45:00,10,"A masterful composition. The melody is captivating, and the lyrics are thought-provoking."
 33,2023-06-05 15:00:00,6,"The track is okay, but it does not stand out in the album."
 34,2023-06-10 17:00:00,8,"A solid track overall, great chorus. Could do with better bridge though."
 35,2023-06-15 20:00:00,7,"Enjoyed the instrumentals, but the vocals seemed off key at times."
-36,2023-06-20 18:00:00,4,"The lyrics are unimpressive and the beat is monotonous."
-37,2023-06-25 14:00:00,9,"Powerful vocals with heart-touching lyrics. This track is a real gem."
-38,2023-06-30 20:30:00,7,"Decent track but it doesn't quite match the quality of the rest of the album."
-39,2023-07-05 16:00:00,8,"Loved the acoustic version of this track. It feels raw and genuine."
-40,2023-07-10 12:00:00,10,"What a track! It's been on repeat all day. The melody is infectious!"
-41,2023-07-15 15:30:00,5,"The melody is quite dull and the lyrics are cliché. Disappointing."
-42,2023-07-20 18:30:00,9,"Impressive song with a catchy hook and well-written lyrics. It's been stuck in my head all day."
+36,2023-06-20 18:00:00,4,The lyrics are unimpressive and the beat is monotonous.
+37,2023-06-25 14:00:00,9,Powerful vocals with heart-touching lyrics. This track is a real gem.
+38,2023-06-30 20:30:00,7,Decent track but it doesn't quite match the quality of the rest of the album.
+39,2023-07-05 16:00:00,8,Loved the acoustic version of this track. It feels raw and genuine.
+40,2023-07-10 12:00:00,10,What a track! It's been on repeat all day. The melody is infectious!
+41,2023-07-15 15:30:00,5,The melody is quite dull and the lyrics are cliché. Disappointing.
+42,2023-07-20 18:30:00,9,Impressive song with a catchy hook and well-written lyrics. It's been stuck in my head all day.
 43,2023-07-25 19:00:00,6,"This track had potential, but it feels unfinished and rushed."
+44,2023-07-10 12:00:00,8,Incredible event! Had an amazing time.
+45,2023-07-10 12:00:00,2,Absolutely trash concert.
+46,2023-07-10 12:00:00,5,"Not that good, never going again."
+47,2023-07-10 12:00:00,6,Decent but would be better if the songs weren’t boring.
+48,2023-07-10 12:00:00,9,Awesome atmosphere!
