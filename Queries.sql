@@ -188,6 +188,25 @@ LEFT JOIN sub_genre sg ON fcsg.sub_genre_id = sg.sub_genre_id;
 
 SELECT * FROM upcoming_concerts_view;
 
--- 16 requêtes
+-- Retrieve the most frequent genre or sub_genre from the upcoming concerts
+SELECT genre_title AS title, MAX(frequency) AS max_frequency
+FROM (
+    SELECT genre_title, COUNT(*) AS frequency
+    FROM upcoming_concerts_view
+    WHERE genre_title IS NOT NULL
+    GROUP BY genre_title
+
+    UNION
+
+    SELECT sub_genre_title, COUNT(*) AS frequency
+    FROM upcoming_concerts_view
+    WHERE sub_genre_title IS NOT NULL
+    GROUP BY sub_genre_title
+) AS subquery
+GROUP BY genre_title
+ORDER BY MAX(frequency) DESC
+LIMIT 1;
+
+-- 17 requêtes
 
 -- END
