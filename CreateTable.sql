@@ -3,7 +3,7 @@ DROP TABLE
     musician, music_group, track,
     track_genre, track_sub_genre,
     users, people, groups, organizers,
-    follows, friendship, playlist,
+    follows, friendship, playlist, playlist_track,
     music_group_plays_track, musician_plays_track,
     place, future_concert, finished_concert,
     future_concert_genre, finished_concert_genre,
@@ -145,7 +145,7 @@ CREATE TABLE friendship (
     CHECK(user1_id <> user2_id)
 );
 
--- TRACKS AND PLAYLISTS (3 tables)
+-- TRACKS AND PLAYLISTS (4 tables)
 
 CREATE TABLE playlist (
     playlist_id SERIAL PRIMARY KEY,
@@ -153,6 +153,14 @@ CREATE TABLE playlist (
     description VARCHAR(255) NOT NULL,
     user_id INT,
     FOREIGN KEY (user_id) REFERENCES users (user_id)
+);
+
+CREATE TABLE playlist_track (
+    playlist_id INT,
+    track_id INT,
+    FOREIGN KEY (playlist_id) REFERENCES playlist (playlist_id),
+    FOREIGN KEY (track_id) REFERENCES track (track_id),
+    PRIMARY KEY (playlist_id,track_id)
 );
 
 CREATE TABLE musician_plays_track (

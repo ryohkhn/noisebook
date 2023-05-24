@@ -31,3 +31,5 @@
 \copy post_tag FROM 'csv/post_tag.csv' WITH (FORMAT csv, HEADER true);
 \copy review_tag FROM 'csv/review_tag.csv' WITH (FORMAT csv, HEADER true);
 \copy place_tag FROM 'csv/place_tag.csv' WITH (FORMAT csv, HEADER true);
+\copy playlist FROM 'csv/playlist.csv' WITH (FORMAT csv, HEADER true);
+\copy playlist_track FROM 'csv/playlist_track.csv' WITH (FORMAT csv, HEADER true);

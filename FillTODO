@@ -8,6 +8,9 @@ track(track_id, title)
 music_group(music_group_id, group_name)
 musician(musician_id, artist_name)
 
+playlist(playlist_id, playlist_name, description, user_id*)
+playlist_track(playlist_id*, track_id*)
+
 genre(genre_id, genre_title, genre_description)
 sub_genre(sub_genre_id, sub_genre_title, sub_genre_description, parent_genre*)
 
@@ -52,8 +55,6 @@ finished_concert_sub_genre(concert_id*, sub_genre_id*)
 
 TODO:
 
-playlist
-track_playlist
 
 organizers_announce_concert
 
