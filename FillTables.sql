@@ -43,5 +43,6 @@
 \copy playlist_track FROM 'csv/playlist_track.csv' WITH (FORMAT csv, HEADER true);
 \copy track_genre FROM 'csv/track_genre.csv' WITH (FORMAT csv, HEADER true);
 \copy track_sub_genre FROM 'csv/track_sub_genre.csv' WITH (FORMAT csv, HEADER true);
+\copy organizers_announce_concert FROM 'csv/organizers_announce_concert.csv' WITH (FORMAT csv, HEADER true);
 
 -- END

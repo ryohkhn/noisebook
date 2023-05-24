@@ -1,4 +1,3 @@
-DONE:
 users(user_id, username, password, email, bio)
 people(person_id, user_id*, first_name, last_name, birth_date, sex)
 groups(group_id, user_id*, music_group_id*, group_name)
@@ -57,10 +56,7 @@ music_group_tag(tag_id*, group_id*)
 future_concert_tag(tag_id*, concert_id*)
 finished_concert_tag(tag_id*, concert_id*)
 
-
-TODO:
-
-organizers_announce_concert(organizer_id*, concert_id*)
-
 track_genre(track_id*, genre_id*)
 track_sub_genre(track_id*, sub_genre_id*)
+
+organizers_announce_concert(organizer_id*, concert_id*)

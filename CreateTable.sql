@@ -179,7 +179,7 @@ CREATE TABLE music_group_plays_track (
     PRIMARY KEY (music_group_id, track_id)
 );
 
--- CONCERTS AND PLACES (8 tables)
+-- CONCERTS AND PLACES (12 tables)
 
 CREATE TABLE place (
     place_id SERIAL PRIMARY KEY,
