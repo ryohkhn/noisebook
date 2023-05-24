@@ -92,18 +92,13 @@ LEFT JOIN place p ON c.place_id = p.place_id;
 -- Find the top 3 music groups playing in concerts with the maximum capacity each month in 2023.
 -- Une requête utilisant du fenêtrage
 WITH monthly_ranks AS (
-    SELECT
-        m.group_name,
-        c.concert_date,
-        p.max_capacity,
-    RANK() OVER(PARTITION BY DATE_TRUNC('month', c.concert_date) ORDER BY p.max_capacity DESC) as rank
-    FROM
-        music_group m
+    SELECT m.group_name, c.concert_date, p.max_capacity,
+      RANK() OVER(PARTITION BY DATE_TRUNC('month', c.concert_date) ORDER BY p.max_capacity DESC) as rank
+    FROM music_group m
     JOIN future_concert_music_group_lineup fl ON m.music_group_id = fl.music_group_id
     JOIN future_concert c ON fl.concert_id = c.concert_id
     JOIN place p ON p.place_id = c.place_id
-    WHERE
-        DATE_PART('year', c.concert_date) = 2023
+    WHERE DATE_PART('year', c.concert_date) = 2023
 )
 SELECT group_name, concert_date, max_capacity, rank
 FROM monthly_ranks
@@ -156,7 +151,8 @@ WITH RECURSIVE following_hierarchy AS (
     FROM follows WHERE follower_id = 1
     UNION
     SELECT f.followed_id AS user_id,fh.level + 1 AS level,f.follower_id
-    FROM follows f JOIN following_hierarchy fh ON f.follower_id = fh.user_id)
+    FROM follows f JOIN following_hierarchy fh ON f.follower_id = fh.user_id
+)
 SELECT u.user_id,u.username,fh.level,fh.follower_id
 FROM following_hierarchy fh
 JOIN users u ON u.user_id = fh.user_id;
@@ -170,5 +166,15 @@ JOIN users u ON cr.user_id = u.user_id
 JOIN review r ON cr.review_id = r.review_id
 GROUP BY cr.user_id, u.username
 HAVING COUNT(r.review_id) >= 5 AND AVG(r.review_grade) > 4;
+
+
+-- Number of members for each group
+SELECT DISTINCT m.music_group_id, m.group_name,
+  COUNT(*) OVER (PARTITION BY m.music_group_id) AS num_members
+FROM music_group m JOIN link_musician_music_group l ON m.music_group_id = l.music_group_id
+ORDER BY m.music_group_id;
+
+
+-- 15 requêtes
 
 -- END
