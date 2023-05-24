@@ -27,11 +27,11 @@ music_group_plays_track(music_group_id*, track_id*)
 follows(follower_id*, followed_id*)
 friendship(user1_id*, user2_id*)
 
+link_people_musician(person_id* , musician_id*)
+link_musician_music_group(musician_id*, music_group_id*)
+
+
 TODO:
-
-
-[X] link_people_musician
-[X] link_musician_music_group
 
 playlist
 
@@ -49,15 +49,15 @@ organizers_announce_concert
 
 concert_review(review_id*, user_id*, concert_id*)
 
-post
-media
+post(post_id, post_timestamp, post_content, user_id*)
+media(media_id, media_link, post_id*)
 
-tag
-post_tag
-review_tag
-future_concert_tag
-finished_concert_tag
-place_tag
-music_group_tag
-genre_tag
-sub_genre_tag
+tag(tag_id, tag_content)
+post_tag(tag_id*, post_id*)
+review_tag(tag_id*, review_id)
+future_concert_tag(tag_id*, concert_id)
+finished_concert_tag(tag_id*, concert_id)
+place_tag(tag_id*, place_id)
+music_group_tag(tag_id*, group_id)
+genre_tag(tag_id*, genre_id)
+sub_genre_tag(tag_id*, sub_genre_id)

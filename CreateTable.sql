@@ -336,7 +336,7 @@ CREATE TABLE concert_review (
 
 CREATE TABLE post (
     post_id SERIAL PRIMARY KEY,
-    post_timestamp TIME NOT NULL,
+    post_timestamp TIMESTAMP NOT NULL,
     post_content VARCHAR(255) NOT NULL,
     user_id INT,
     FOREIGN KEY (user_id) REFERENCES users (user_id)
