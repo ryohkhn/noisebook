@@ -112,8 +112,34 @@ SELECT group_name, concert_date, max_capacity, rank
 FROM monthly_ranks
 WHERE rank <= 3;
 
+-- deux requêtes équivalentes exprimant une condition de totalité,
+-- l’une avec des sous requêtes corrélées et
+-- l’autre avec de l’agrégation ;
+-- Trouver tous les groupes de musique qui ont organisé plus de 10 concerts.
 
+SELECT m.group_name
+FROM music_group m
+JOIN future_concert_music_group_lineup c ON m.music_group_id = c.music_group_id
+GROUP BY m.group_name
+HAVING COUNT(c.concert_id) >= 1;
 
+SELECT m.group_name
+FROM music_group m
+WHERE (
+  SELECT COUNT(*)
+  FROM future_concert_music_group_lineup c
+  WHERE m.music_group_id = c.music_group_id
+) >= 1;
+
+-- deux requêtes qui renverraient le même résultat
+-- si vos tables ne contenaient pas de nulls, 
+-- mais qui renvoient des résultats différents ici
+SELECT username, bio
+FROM users;
+
+SELECT username, bio
+FROM users
+WHERE bio IS NOT NULL;
 
 
 
