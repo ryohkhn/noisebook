@@ -446,6 +446,7 @@ BEFORE INSERT ON playlist
 FOR EACH ROW
 EXECUTE FUNCTION check_user_playlist_limit();
 
+
 -- TRIGGER TO VERIFY THAT A REVIEW IS UNIQUE
 CREATE OR REPLACE FUNCTION verify_unique_review() RETURNS TRIGGER AS $$
 DECLARE
@@ -518,5 +519,43 @@ FOR EACH ROW
 EXECUTE PROCEDURE verify_unique_review();
 
 
+-- TRIGGER TO VERIFY THAT THE ATTENDANCE OF FINISHED CONCERT IS LOWER THAN THE PLACE MAX CAPACITY
+CREATE OR REPLACE FUNCTION check_capacity_finished_concert()
+RETURNS TRIGGER AS $$
+DECLARE
+    place_capacity INT;
+BEGIN
+    SELECT max_capacity INTO place_capacity FROM place WHERE place_id = NEW.place_id;
+    IF NEW.attendance > place_capacity THEN
+        RAISE EXCEPTION 'Attendance cannot exceed the place maximum capacity.';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER check_capacity_finished_concert_trigger
+BEFORE INSERT ON finished_concert
+FOR EACH ROW
+EXECUTE FUNCTION check_capacity_finished_concert();
+
+
+-- TRIGGER TO VERIFY THAT THE ATTENDANCE OF FUTURE CONCERT IS LOWER THAN THE PLACE MAX CAPACITY
+CREATE OR REPLACE FUNCTION check_capacity_future_concert()
+RETURNS TRIGGER AS $$
+DECLARE
+    place_capacity INT;
+BEGIN
+    SELECT max_capacity INTO place_capacity FROM place WHERE place_id = NEW.place_id;
+    IF NEW.ticket_price > place_capacity THEN
+        RAISE EXCEPTION 'Attendance cannot exceed the place maximum capacity.';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER check_capacity_future_concert_trigger
+BEFORE INSERT ON future_concert
+FOR EACH ROW
+EXECUTE FUNCTION check_capacity_future_concert();
 
 -- END
