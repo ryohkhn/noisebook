@@ -1,5 +1,4 @@
 -- une requête qui porte sur au moins trois tables ;
--- todo add reviews
 -- Top 5 tracks with highest average grade, with at least 5 reviews, and their max grade.
 SELECT AVG(r.review_grade) AS average_grade, MAX(r.review_grade) as max_grade, t.track_id, t.title
 FROM review r JOIN track_review tr ON r.review_id = tr.review_id
@@ -19,7 +18,7 @@ WHERE f1.follower_id  < f2.follower_id;
 
 
 -- une sous-requête dans le FROM ;
---Find the top 3 cities with the highest number of concerts.
+-- Find the top 3 cities with the highest number of concerts.
 SELECT p.city, COUNT(*) AS concert_count
 FROM (
     SELECT concert_id, place_id FROM finished_concert
@@ -33,7 +32,6 @@ LIMIT 3;
 
 
 -- une sous-requête corrélée
--- todo add a lot more group followers
 -- Music groups that have an above average number of followers.
 WITH average_followers AS(
     SELECT AVG(avg.follower_count) as average
@@ -112,13 +110,13 @@ FROM monthly_ranks
 WHERE rank <= 3;
 
 
+-- TODO changer cette requête
 -- Find the number of concerts organized by each organizer.
 -- — une jointure externe (LEFT JOIN, RIGHT JOIN ou FULL JOIN) ;
-SELECT o.ortganizateur_id, o.ortganizateur_name, COUNT(fc.concert_id) + COUNT(fnc.concert_id) AS concert_count
-FROM organizer o
+SELECT o.organizer_id, o.organizer_name, COUNT(fc.concert_id) AS concert_count
+FROM organizers o
 LEFT JOIN finished_concert fc ON o.user_id = fc.place_id
-LEFT JOIN future_concert fnc ON o.user_id = fnc.place_id
-GROUP BY o.ortganizateur_id, o.ortganizateur_name;
+GROUP BY o.organizer_id, o.organizer_name;
 
 
 -- deux requêtes équivalentes exprimant une condition de totalité,
