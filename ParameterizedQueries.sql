@@ -12,7 +12,7 @@ JOIN users u ON u.user_id = fh.user_id;
 
 
 -- Upcoming concerts on a given city
-DROP VIEW upcoming_concerts_view;
+DROP VIEW IF EXISTS upcoming_concerts_view;
 CREATE VIEW upcoming_concerts_view AS
 SELECT fc.concert_id, fc.concert_name, fc.concert_date, fc.start_time, g.genre_title, sg.sub_genre_title, fc.place_id
 FROM future_concert fc
@@ -28,7 +28,15 @@ JOIN place p ON v.place_id = p.place_id
 WHERE p.city = $1;
 
 
-
+PREPARE user_playlists(INT) AS
+WITH user_playlists AS (
+    SELECT pl.playlist_id, pl.playlist_name, pl.description, u.username, u.user_id
+    FROM playlist pl
+    JOIN users u ON u.user_id = pl.user_id
+)
+SELECT up.playlist_name, up.description
+FROM user_playlists up
+WHERE up.user_id = $1;
 
 --EXECUTE following_hierarchy(1);
 --EXECUTE upcoming_concert_in_city('Barcelona');
