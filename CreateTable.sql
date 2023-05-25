@@ -84,10 +84,10 @@ CREATE TABLE people (
     first_name VARCHAR(40) NOT NULL,
     last_name VARCHAR(40) NOT NULL,
     birth_date DATE NOT NULL,
-    sexe CHARACTER NOT NULL,
+    sex CHARACTER NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE ON UPDATE CASCADE,
     CHECK (birth_date <= (CURRENT_DATE - INTERVAL '13 years')),
-    CHECK (sexe IN ('M', 'F', 'O'))
+    CHECK (sex IN ('M', 'F', 'O'))
 );
 
 CREATE TABLE groups (
