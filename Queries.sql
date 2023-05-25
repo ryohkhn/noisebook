@@ -153,7 +153,7 @@ WITH RECURSIVE following_hierarchy AS (
     SELECT f.followed_id AS user_id,fh.level + 1 AS level,f.follower_id
     FROM follows f JOIN following_hierarchy fh ON f.follower_id = fh.user_id
 )
-SELECT u.user_id,u.username,fh.level,fh.follower_id
+SELECT u.user_id,u.username,fh.follower_id,fh.level
 FROM following_hierarchy fh
 JOIN users u ON u.user_id = fh.user_id;
 
@@ -195,9 +195,7 @@ FROM (
     FROM upcoming_concerts_view
     WHERE genre_title IS NOT NULL
     GROUP BY genre_title
-
     UNION
-
     SELECT sub_genre_title, COUNT(*) AS frequency
     FROM upcoming_concerts_view
     WHERE sub_genre_title IS NOT NULL
@@ -214,6 +212,19 @@ FROM future_concert fc
 JOIN place p ON p.place_id = fc.place_id
 WHERE ticket_price = (SELECT MIN(ticket_price) FROM future_concert);
 
--- 18 requêtes
+
+-- Tracks ranked by highest average review grade, their genres
+SELECT
+    t.title AS track_title,
+    g.genre_title AS genre,
+    AVG(r.review_grade) AS average_review_grade,
+    RANK() OVER (ORDER BY AVG(r.review_grade) DESC) as rank
+FROM review r
+JOIN track_review tr ON tr.review_id = r.review_id
+JOIN track t ON tr.track_id = t.track_id
+JOIN track_genre tg ON t.track_id = tg.track_id
+JOIN genre g ON tg.genre_id = g.genre_id
+GROUP BY t.track_id, g.genre_title;
+
 
 -- END
