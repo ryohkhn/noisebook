@@ -315,6 +315,7 @@ CREATE TABLE group_review (
     FOREIGN KEY (review_id) REFERENCES review (review_id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE,
     FOREIGN KEY (group_id) REFERENCES groups (group_id) ON DELETE CASCADE,
+    UNIQUE(user_id, group_id),
     PRIMARY KEY (review_id, user_id, group_id)
 );
 
@@ -325,6 +326,7 @@ CREATE TABLE track_review (
     FOREIGN KEY (review_id) REFERENCES review (review_id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE,
     FOREIGN KEY (track_id) REFERENCES track (track_id) ON DELETE CASCADE,
+    UNIQUE(user_id, track_id),
     PRIMARY KEY (review_id, user_id, track_id)
 );
 
@@ -335,6 +337,7 @@ CREATE TABLE place_review (
     FOREIGN KEY (review_id) REFERENCES review (review_id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE,
     FOREIGN KEY (place_id) REFERENCES place (place_id) ON DELETE CASCADE,
+    UNIQUE(user_id, place_id),
     PRIMARY KEY (review_id, user_id, place_id)
 );
 
@@ -345,6 +348,7 @@ CREATE TABLE concert_review (
     FOREIGN KEY (review_id) REFERENCES review (review_id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE,
     FOREIGN KEY (concert_id) REFERENCES finished_concert (concert_id) ON DELETE CASCADE,
+    UNIQUE(user_id, concert_id),
     PRIMARY KEY (review_id, user_id, concert_id)
 );
 
