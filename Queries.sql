@@ -1,6 +1,6 @@
 -- Top 5 tracks with highest average grade, with at least 5 reviews, and their max grade.
 -- Une requête qui porte sur au moins trois tables
-SELECT AVG(r.review_grade) AS average_grade, MAX(r.review_grade) as max_grade, t.track_id, t.title
+SELECT CAST(AVG(r.review_grade)AS FLOAT) AS average_grade, MAX(r.review_grade) as max_grade, t.track_id, t.title
 FROM review r JOIN track_review tr ON r.review_id = tr.review_id
 JOIN track t ON tr.track_id = t.track_id
 GROUP BY t.track_id, t.title
@@ -34,7 +34,7 @@ LIMIT 3;
 -- Music groups that have an above average number of followers.
 -- Une sous-requête corrélée
 WITH average_followers AS(
-    SELECT AVG(avg.follower_count) as average
+    SELECT CAST(AVG(avg.follower_count) AS FLOAT) as average
     FROM (
         SELECT COUNT(*) AS follower_count
         FROM follows
@@ -71,7 +71,7 @@ HAVING COUNT(DISTINCT place_id) >= 3;
 -- Find the music group with the highest average number of attendees per concert.
 -- Une requête impliquant le calcul de deux agrégats
 WITH average_attendance_per_group AS(
-    SELECT AVG(f.attendance) AS average_attendance
+    SELECT CAST(AVG(f.attendance) AS FLOAT) AS average_attendance
     FROM finished_concert f
     JOIN finished_concert_music_group_lineup l ON f.concert_id = l.concert_id
     GROUP BY l.music_group_id
@@ -160,7 +160,7 @@ JOIN users u ON u.user_id = fh.user_id;
 -- Other requests
 
 -- Users who have given more than 5 reviews to finished concerts with an average review grade greater than 4.
-SELECT cr.user_id, u.username, COUNT(cr.concert_id) AS review_count, AVG(r.review_grade) AS avg_review_grade
+SELECT cr.user_id, u.username, COUNT(cr.concert_id) AS review_count, CAST(AVG(r.review_grade) AS FLOAT) AS avg_review_grade
 FROM concert_review cr
 JOIN users u ON cr.user_id = u.user_id
 JOIN review r ON cr.review_id = r.review_id
@@ -217,7 +217,7 @@ WHERE ticket_price = (SELECT MIN(ticket_price) FROM future_concert);
 SELECT
     t.title AS track_title,
     g.genre_title AS genre,
-    AVG(r.review_grade) AS average_review_grade,
+    CAST(AVG(r.review_grade) AS FLOAT) AS average_review_grade,
     RANK() OVER (ORDER BY AVG(r.review_grade) DESC) as rank
 FROM review r
 JOIN track_review tr ON tr.review_id = r.review_id
