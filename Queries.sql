@@ -179,7 +179,7 @@ ORDER BY m.music_group_id;
 DROP VIEW upcoming_concerts_view;
 
 CREATE VIEW upcoming_concerts_view AS
-SELECT fc.concert_id, fc.concert_name, fc.concert_date, fc.start_time, g.genre_title, sg.sub_genre_title
+SELECT fc.concert_id, fc.concert_name, fc.concert_date, fc.start_time, g.genre_title, sg.sub_genre_title, fc.place_id
 FROM future_concert fc
 LEFT JOIN future_concert_genre fcg ON fc.concert_id = fcg.concert_id
 LEFT JOIN future_concert_sub_genre fcsg ON fc.concert_id = fcsg.concert_id

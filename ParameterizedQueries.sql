@@ -10,10 +10,25 @@ SELECT u.user_id, u.username, fh.follower_id, fh.level
 FROM following_hierarchy fh
 JOIN users u ON u.user_id = fh.user_id;
 
-EXECUTE following_hierarchy(1);
 
+-- Upcoming concerts on a given city
+DROP VIEW upcoming_concerts_view;
+CREATE VIEW upcoming_concerts_view AS
+SELECT fc.concert_id, fc.concert_name, fc.concert_date, fc.start_time, g.genre_title, sg.sub_genre_title, fc.place_id
+FROM future_concert fc
+LEFT JOIN future_concert_genre fcg ON fc.concert_id = fcg.concert_id
+LEFT JOIN future_concert_sub_genre fcsg ON fc.concert_id = fcsg.concert_id
+LEFT JOIN genre g ON fcg.genre_id = g.genre_id
+LEFT JOIN sub_genre sg ON fcsg.sub_genre_id = sg.sub_genre_id;
 
+PREPARE upcoming_concert_in_city(TEXT) AS
 SELECT v.concert_id, v.concert_name, v.concert_date, v.start_time, v.genre_title, v.sub_genre_title
 FROM upcoming_concerts_view v
 JOIN place p ON v.place_id = p.place_id
-WHERE p.city = [city_name];
+WHERE p.city = $1;
+
+
+
+
+--EXECUTE following_hierarchy(1);
+--EXECUTE upcoming_concert_in_city('Barcelona');
