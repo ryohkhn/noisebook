@@ -60,3 +60,4 @@ track_genre(track_id*, genre_id*)
 track_sub_genre(track_id*, sub_genre_id*)
 
 organizers_announce_concert(organizer_id*, concert_id*)
+user_attends_concert(user_id*, concert_id*)

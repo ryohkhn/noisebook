@@ -258,6 +258,14 @@ CREATE TABLE organizers_announce_concert (
     PRIMARY KEY (organizer_id,concert_id)
 );
 
+CREATE TABLE user_attends_concert(
+    user_id INT,
+    concert_id INT,
+    FOREIGN KEY (user_id) REFERENCES users (user_id),
+    FOREIGN KEY (concert_id) REFERENCES future_concert (concert_id),
+    PRIMARY KEY (user_id,concert_id)    
+);
+
 CREATE TABLE future_concert_genre(
   concert_id INT,
   genre_id INT,
