@@ -16,7 +16,7 @@ DROP TABLE
     finished_concert_tag, place_tag, music_group_tag,
     genre_tag, sub_genre_tag, review,
     link_people_musician, link_musician_music_group,
-    organizers_announce_concert CASCADE;
+    organizers_announce_concert, user_attends_concert CASCADE;
 
 -- GENRES (2 tables)
 
@@ -85,7 +85,7 @@ CREATE TABLE people (
     last_name VARCHAR(40) NOT NULL,
     birth_date DATE NOT NULL,
     sexe CHARACTER NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users (user_id),
+    FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE ON UPDATE CASCADE,
     CHECK (birth_date <= (CURRENT_DATE - INTERVAL '13 years')),
     CHECK (sexe IN ('M', 'F', 'O'))
 );
@@ -95,8 +95,8 @@ CREATE TABLE groups (
     user_id INT,
     music_group_id INT,
     group_name VARCHAR(40) NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users (user_id),
-    FOREIGN KEY (music_group_id) REFERENCES music_group (music_group_id)
+    FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE,
+    FOREIGN KEY (music_group_id) REFERENCES music_group (music_group_id) ON DELETE CASCADE
 );
 
 CREATE TABLE organizers (
@@ -104,7 +104,7 @@ CREATE TABLE organizers (
     user_id INT,
     organizer_name VARCHAR(40) NOT NULL,
     location VARCHAR(50) NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users (user_id)
+    FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE
 );
 
 -- PEOPLE, GROUP AND MUSICIAN RELATIONSHIP (2 tables)
@@ -112,16 +112,16 @@ CREATE TABLE organizers (
 CREATE TABLE link_people_musician (
     person_id INT,
     musician_id INT,
-    FOREIGN KEY (person_id) REFERENCES people(person_id),
-    FOREIGN KEY (musician_id) REFERENCES musician(musician_id),
+    FOREIGN KEY (person_id) REFERENCES people(person_id) ON DELETE CASCADE,
+    FOREIGN KEY (musician_id) REFERENCES musician(musician_id) ON DELETE CASCADE,
     PRIMARY KEY (person_id,musician_id)
 );
 
 CREATE TABLE link_musician_music_group (
     musician_id INT,
     music_group_id INT,
-    FOREIGN KEY (musician_id) REFERENCES musician(musician_id),
-    FOREIGN KEY (music_group_id) REFERENCES music_group(music_group_id),
+    FOREIGN KEY (musician_id) REFERENCES musician(musician_id) ON DELETE CASCADE,
+    FOREIGN KEY (music_group_id) REFERENCES music_group(music_group_id) ON DELETE CASCADE,
     PRIMARY KEY (musician_id,music_group_id)
 );
 
@@ -131,8 +131,8 @@ CREATE TABLE follows (
     follower_id INT NOT NULL,
     followed_id INT NOT NULL,
     PRIMARY KEY (follower_id, followed_id),
-    FOREIGN KEY (follower_id) REFERENCES users (user_id),
-    FOREIGN KEY (followed_id) REFERENCES users (user_id),
+    FOREIGN KEY (follower_id) REFERENCES users (user_id) ON DELETE CASCADE,
+    FOREIGN KEY (followed_id) REFERENCES users (user_id) ON DELETE CASCADE,
     CHECK(follower_id <> followed_id)
 );
 
@@ -140,8 +140,8 @@ CREATE TABLE friendship (
     user1_id INT NOT NULL,
     user2_id INT NOT NULL,
     PRIMARY KEY (user1_id, user2_id),
-    FOREIGN KEY (user1_id) REFERENCES users (user_id),
-    FOREIGN KEY (user2_id) REFERENCES users (user_id),
+    FOREIGN KEY (user1_id) REFERENCES users (user_id) ON DELETE CASCADE,
+    FOREIGN KEY (user2_id) REFERENCES users (user_id) ON DELETE CASCADE,
     CHECK(user1_id <> user2_id)
 );
 
@@ -152,30 +152,30 @@ CREATE TABLE playlist (
     playlist_name VARCHAR(40) NOT NULL,
     description VARCHAR(255) NOT NULL,
     user_id INT,
-    FOREIGN KEY (user_id) REFERENCES users (user_id)
+    FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE
 );
 
 CREATE TABLE playlist_track (
     playlist_id INT,
     track_id INT,
-    FOREIGN KEY (playlist_id) REFERENCES playlist (playlist_id),
-    FOREIGN KEY (track_id) REFERENCES track (track_id),
+    FOREIGN KEY (playlist_id) REFERENCES playlist (playlist_id) ON DELETE CASCADE,
+    FOREIGN KEY (track_id) REFERENCES track (track_id) ON DELETE CASCADE,
     PRIMARY KEY (playlist_id,track_id)
 );
 
 CREATE TABLE musician_plays_track (
     musician_id INT,
     track_id INT,
-    FOREIGN KEY (musician_id) REFERENCES musician (musician_id),
-    FOREIGN KEY (track_id) REFERENCES track (track_id),
+    FOREIGN KEY (musician_id) REFERENCES musician (musician_id) ON DELETE CASCADE,
+    FOREIGN KEY (track_id) REFERENCES track (track_id) ON DELETE CASCADE,
     PRIMARY KEY (musician_id, track_id)
 );
 
 CREATE TABLE music_group_plays_track (
     music_group_id INT,
     track_id INT,
-    FOREIGN KEY (music_group_id) REFERENCES music_group(music_group_id),
-    FOREIGN KEY (track_id) REFERENCES track (track_id),
+    FOREIGN KEY (music_group_id) REFERENCES music_group(music_group_id) ON DELETE CASCADE,
+    FOREIGN KEY (track_id) REFERENCES track (track_id) ON DELETE CASCADE,
     PRIMARY KEY (music_group_id, track_id)
 );
 
@@ -200,7 +200,7 @@ CREATE TABLE future_concert (
     ticket_price INT NOT NULL,
     children_allowed BOOLEAN NOT NULL DEFAULT false,
     place_id INT,
-    FOREIGN KEY (place_id) REFERENCES place (place_id),
+    FOREIGN KEY (place_id) REFERENCES place (place_id) ON DELETE CASCADE,
     CHECK(ticket_price >= 0)
 );
 
@@ -213,7 +213,7 @@ CREATE TABLE finished_concert (
     children_allowed BOOLEAN NOT NULL DEFAULT false,
     attendance INT NOT NULL,
     place_id INT,
-    FOREIGN KEY (place_id) REFERENCES place (place_id),
+    FOREIGN KEY (place_id) REFERENCES place (place_id) ON DELETE CASCADE,
     CHECK(ticket_price >= 0),
     CHECK(attendance >= 0)
 );
@@ -221,80 +221,80 @@ CREATE TABLE finished_concert (
 CREATE TABLE future_concert_musicians_lineup (
     musician_id INT,
     concert_id INT,
-    FOREIGN KEY (musician_id) REFERENCES musician (musician_id),
-    FOREIGN KEY (concert_id) REFERENCES future_concert (concert_id),
+    FOREIGN KEY (musician_id) REFERENCES musician (musician_id) ON DELETE CASCADE,
+    FOREIGN KEY (concert_id) REFERENCES future_concert (concert_id) ON DELETE CASCADE,
     PRIMARY KEY (musician_id,concert_id)
 );
 
 CREATE TABLE future_concert_music_group_lineup (
     music_group_id INT,
     concert_id INT,
-    FOREIGN KEY (music_group_id) REFERENCES music_group (music_group_id),
-    FOREIGN KEY (concert_id) REFERENCES future_concert (concert_id),
+    FOREIGN KEY (music_group_id) REFERENCES music_group (music_group_id) ON DELETE CASCADE,
+    FOREIGN KEY (concert_id) REFERENCES future_concert (concert_id) ON DELETE CASCADE,
     PRIMARY KEY (music_group_id,concert_id)
 );
 
 CREATE TABLE finished_concert_musicians_lineup (
     musician_id INT,
     concert_id INT,
-    FOREIGN KEY (musician_id) REFERENCES musician (musician_id),
-    FOREIGN KEY (concert_id) REFERENCES finished_concert (concert_id),
+    FOREIGN KEY (musician_id) REFERENCES musician (musician_id) ON DELETE CASCADE,
+    FOREIGN KEY (concert_id) REFERENCES finished_concert (concert_id) ON DELETE CASCADE,
     PRIMARY KEY (musician_id,concert_id)
 );
 
 CREATE TABLE finished_concert_music_group_lineup (
     music_group_id INT,
     concert_id INT,
-    FOREIGN KEY (music_group_id) REFERENCES music_group (music_group_id),
-    FOREIGN KEY (concert_id) REFERENCES finished_concert (concert_id),
+    FOREIGN KEY (music_group_id) REFERENCES music_group (music_group_id) ON DELETE CASCADE,
+    FOREIGN KEY (concert_id) REFERENCES finished_concert (concert_id) ON DELETE CASCADE,
     PRIMARY KEY (music_group_id,concert_id)
 );
 
 CREATE TABLE organizers_announce_concert (
     organizer_id INT,
     concert_id INT,
-    FOREIGN KEY (organizer_id) REFERENCES organizers (organizer_id),
-    FOREIGN KEY (concert_id) REFERENCES future_concert (concert_id),
+    FOREIGN KEY (organizer_id) REFERENCES organizers (organizer_id) ON DELETE CASCADE,
+    FOREIGN KEY (concert_id) REFERENCES future_concert (concert_id) ON DELETE CASCADE,
     PRIMARY KEY (organizer_id,concert_id)
 );
 
 CREATE TABLE user_attends_concert(
     user_id INT,
     concert_id INT,
-    FOREIGN KEY (user_id) REFERENCES users (user_id),
-    FOREIGN KEY (concert_id) REFERENCES future_concert (concert_id),
-    PRIMARY KEY (user_id,concert_id)    
+    FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE,
+    FOREIGN KEY (concert_id) REFERENCES future_concert (concert_id) ON DELETE CASCADE,
+    PRIMARY KEY (user_id,concert_id)
 );
 
 CREATE TABLE future_concert_genre(
   concert_id INT,
   genre_id INT,
-  FOREIGN KEY (concert_id) REFERENCES future_concert (concert_id),
-  FOREIGN KEY (genre_id) REFERENCES genre (genre_id),
+  FOREIGN KEY (concert_id) REFERENCES future_concert (concert_id) ON DELETE CASCADE,
+  FOREIGN KEY (genre_id) REFERENCES genre (genre_id) ON DELETE CASCADE,
   PRIMARY KEY (concert_id, genre_id)
 );
 
 CREATE TABLE future_concert_sub_genre(
   concert_id INT,
   sub_genre_id INT,
-  FOREIGN KEY (concert_id) REFERENCES future_concert (concert_id),
-  FOREIGN KEY (sub_genre_id) REFERENCES sub_genre (sub_genre_id),
+  FOREIGN KEY (concert_id) REFERENCES future_concert (concert_id) ON DELETE CASCADE,
+  FOREIGN KEY (sub_genre_id) REFERENCES sub_genre (sub_genre_id) ON DELETE CASCADE,
   PRIMARY KEY (concert_id, sub_genre_id)
 );
 
 CREATE TABLE finished_concert_genre(
   concert_id INT,
   genre_id INT,
-  FOREIGN KEY (concert_id) REFERENCES finished_concert (concert_id),
-  FOREIGN KEY (genre_id) REFERENCES genre (genre_id),
+  FOREIGN KEY (concert_id) REFERENCES finished_concert (concert_id) ON DELETE CASCADE,
+  FOREIGN KEY (genre_id) REFERENCES genre (genre_id) ON DELETE CASCADE,
   PRIMARY KEY (concert_id, genre_id)
 );
 
 CREATE TABLE finished_concert_sub_genre(
   concert_id INT,
   sub_genre_id INT,
-  FOREIGN KEY (concert_id) REFERENCES finished_concert (concert_id),
-  FOREIGN KEY (sub_genre_id) REFERENCES sub_genre (sub_genre_id),
+  FOREIGN KEY (concert_id) REFERENCES finished_concert (concert_id) ON DELETE CASCADE,
+  FOREIGN KEY (sub_genre_id) REFERENCES sub_genre (sub_genre_id) ON DELETE CASCADE,
   PRIMARY KEY (concert_id, sub_genre_id)
 );
 
@@ -312,9 +312,9 @@ CREATE TABLE group_review (
     review_id INT,
     user_id INT,
     group_id INT,
-    FOREIGN KEY (review_id) REFERENCES review (review_id),
-    FOREIGN KEY (user_id) REFERENCES users (user_id),
-    FOREIGN KEY (group_id) REFERENCES groups (group_id),
+    FOREIGN KEY (review_id) REFERENCES review (review_id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE,
+    FOREIGN KEY (group_id) REFERENCES groups (group_id) ON DELETE CASCADE,
     PRIMARY KEY (review_id, user_id, group_id)
 );
 
@@ -322,9 +322,9 @@ CREATE TABLE track_review (
     review_id INT,
     user_id INT,
     track_id INT,
-    FOREIGN KEY (review_id) REFERENCES review (review_id),
-    FOREIGN KEY (user_id) REFERENCES users (user_id),
-    FOREIGN KEY (track_id) REFERENCES track (track_id),
+    FOREIGN KEY (review_id) REFERENCES review (review_id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE,
+    FOREIGN KEY (track_id) REFERENCES track (track_id) ON DELETE CASCADE,
     PRIMARY KEY (review_id, user_id, track_id)
 );
 
@@ -332,9 +332,9 @@ CREATE TABLE place_review (
     review_id INT,
     user_id INT,
     place_id INT,
-    FOREIGN KEY (review_id) REFERENCES review (review_id),
-    FOREIGN KEY (user_id) REFERENCES users (user_id),
-    FOREIGN KEY (place_id) REFERENCES place (place_id),
+    FOREIGN KEY (review_id) REFERENCES review (review_id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE,
+    FOREIGN KEY (place_id) REFERENCES place (place_id) ON DELETE CASCADE,
     PRIMARY KEY (review_id, user_id, place_id)
 );
 
@@ -342,9 +342,9 @@ CREATE TABLE concert_review (
     review_id INT,
     user_id INT,
     concert_id INT,
-    FOREIGN KEY (review_id) REFERENCES review (review_id),
-    FOREIGN KEY (user_id) REFERENCES users (user_id),
-    FOREIGN KEY (concert_id) REFERENCES finished_concert (concert_id),
+    FOREIGN KEY (review_id) REFERENCES review (review_id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE,
+    FOREIGN KEY (concert_id) REFERENCES finished_concert (concert_id) ON DELETE CASCADE,
     PRIMARY KEY (review_id, user_id, concert_id)
 );
 
@@ -355,14 +355,14 @@ CREATE TABLE post (
     post_timestamp TIMESTAMP NOT NULL,
     post_content VARCHAR(255) NOT NULL,
     user_id INT,
-    FOREIGN KEY (user_id) REFERENCES users (user_id)
+    FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE
 );
 
 CREATE TABLE media (
     media_id SERIAL PRIMARY KEY,
     media_link VARCHAR(255) NOT NULL,
     post_id INT,
-    FOREIGN KEY (post_id) REFERENCES post (post_id)
+    FOREIGN KEY (post_id) REFERENCES post (post_id) ON DELETE CASCADE
 );
 
 -- TAGS (9 tables)
@@ -375,64 +375,64 @@ CREATE TABLE tag (
 CREATE TABLE post_tag(
     tag_id INT,
     post_id INT,
-    FOREIGN KEY (tag_id) REFERENCES tag (tag_id),
-    FOREIGN KEY (post_id) REFERENCES post (post_id),
+    FOREIGN KEY (tag_id) REFERENCES tag (tag_id) ON DELETE CASCADE,
+    FOREIGN KEY (post_id) REFERENCES post (post_id) ON DELETE CASCADE,
     PRIMARY KEY(tag_id, post_id)
 );
 
 CREATE TABLE review_tag(
     tag_id INT,
     review_id INT,
-    FOREIGN KEY (tag_id) REFERENCES tag (tag_id),
-    FOREIGN KEY (review_id) REFERENCES review (review_id),
+    FOREIGN KEY (tag_id) REFERENCES tag (tag_id) ON DELETE CASCADE,
+    FOREIGN KEY (review_id) REFERENCES review (review_id) ON DELETE CASCADE,
     PRIMARY KEY(tag_id, review_id)
 );
 
 CREATE TABLE future_concert_tag(
     tag_id INT,
     concert_id INT,
-    FOREIGN KEY (tag_id) REFERENCES tag (tag_id),
-    FOREIGN KEY (concert_id) REFERENCES future_concert (concert_id),
+    FOREIGN KEY (tag_id) REFERENCES tag (tag_id) ON DELETE CASCADE,
+    FOREIGN KEY (concert_id) REFERENCES future_concert (concert_id) ON DELETE CASCADE,
     PRIMARY KEY(tag_id, concert_id)
 );
 
 CREATE TABLE finished_concert_tag(
     tag_id INT,
     concert_id INT,
-    FOREIGN KEY (tag_id) REFERENCES tag (tag_id),
-    FOREIGN KEY (concert_id) REFERENCES finished_concert (concert_id),
+    FOREIGN KEY (tag_id) REFERENCES tag (tag_id) ON DELETE CASCADE,
+    FOREIGN KEY (concert_id) REFERENCES finished_concert (concert_id) ON DELETE CASCADE,
     PRIMARY KEY(tag_id, concert_id)
 );
 
 CREATE TABLE place_tag(
     tag_id INT,
     place_id INT,
-    FOREIGN KEY (tag_id) REFERENCES tag (tag_id),
-    FOREIGN KEY (place_id) REFERENCES place (place_id),
+    FOREIGN KEY (tag_id) REFERENCES tag (tag_id) ON DELETE CASCADE,
+    FOREIGN KEY (place_id) REFERENCES place (place_id) ON DELETE CASCADE,
     PRIMARY KEY(tag_id, place_id)
 );
 
 CREATE TABLE music_group_tag(
     tag_id INT,
     group_id INT,
-    FOREIGN KEY (tag_id) REFERENCES tag (tag_id),
-    FOREIGN KEY (group_id) REFERENCES music_group (music_group_id),
+    FOREIGN KEY (tag_id) REFERENCES tag (tag_id) ON DELETE CASCADE,
+    FOREIGN KEY (group_id) REFERENCES music_group (music_group_id) ON DELETE CASCADE,
     PRIMARY KEY(tag_id, group_id)
 );
 
 CREATE TABLE genre_tag(
     tag_id INT,
     genre_id INT,
-    FOREIGN KEY (tag_id) REFERENCES tag (tag_id),
-    FOREIGN KEY (genre_id) REFERENCES genre (genre_id),
+    FOREIGN KEY (tag_id) REFERENCES tag (tag_id) ON DELETE CASCADE,
+    FOREIGN KEY (genre_id) REFERENCES genre (genre_id) ON DELETE CASCADE,
     PRIMARY KEY(tag_id, genre_id)
 );
 
 CREATE TABLE sub_genre_tag(
     tag_id INT,
     sub_genre_id INT,
-    FOREIGN KEY (tag_id) REFERENCES tag (tag_id),
-    FOREIGN KEY (sub_genre_id) REFERENCES sub_genre (sub_genre_id),
+    FOREIGN KEY (tag_id) REFERENCES tag (tag_id) ON DELETE CASCADE,
+    FOREIGN KEY (sub_genre_id) REFERENCES sub_genre (sub_genre_id) ON DELETE CASCADE,
     PRIMARY KEY(tag_id, sub_genre_id)
   );
 
@@ -506,6 +506,20 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+-- TRIGGER TO VERIFY THAT THE ATTENDANCE OF FINISHED CONCERT IS LOWER THAN THE PLACE MAX CAPACITY
+CREATE OR REPLACE FUNCTION check_capacity_finished_concert()
+RETURNS TRIGGER AS $$
+DECLARE
+place_capacity INT;
+BEGIN
+SELECT max_capacity INTO place_capacity FROM place WHERE place_id = NEW.place_id;
+IF NEW.attendance > place_capacity THEN
+RAISE EXCEPTION 'Attendance cannot exceed the place maximum capacity.';
+END IF;
+RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
 CREATE TRIGGER group_review_trigger
 BEFORE INSERT ON group_review
 FOR EACH ROW
@@ -525,21 +539,6 @@ CREATE TRIGGER concert_review_trigger
 BEFORE INSERT ON concert_review
 FOR EACH ROW
 EXECUTE PROCEDURE verify_unique_review();
-
-
--- TRIGGER TO VERIFY THAT THE ATTENDANCE OF FINISHED CONCERT IS LOWER THAN THE PLACE MAX CAPACITY
-CREATE OR REPLACE FUNCTION check_capacity_finished_concert()
-RETURNS TRIGGER AS $$
-DECLARE
-    place_capacity INT;
-BEGIN
-    SELECT max_capacity INTO place_capacity FROM place WHERE place_id = NEW.place_id;
-    IF NEW.attendance > place_capacity THEN
-        RAISE EXCEPTION 'Attendance cannot exceed the place maximum capacity.';
-    END IF;
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
 
 CREATE TRIGGER check_capacity_finished_concert_trigger
 BEFORE INSERT ON finished_concert
