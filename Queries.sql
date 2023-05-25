@@ -227,4 +227,25 @@ JOIN genre g ON tg.genre_id = g.genre_id
 GROUP BY t.track_id, g.genre_title;
 
 
--- END
+-- Le nombre de tags communs entre les intérêts de l'utilisateur et les tags associés à un concert à venir.
+SELECT fc.concert_id, fc.concert_name, COUNT(*) AS matching_tag_count
+FROM future_concert fc
+JOIN future_concert_tag fct ON fc.concert_id = fct.concert_id
+JOIN post_tag pt ON fct.tag_id = pt.tag_id
+JOIN post p ON pt.post_id = p.post_id
+WHERE p.user_id = :user_id
+GROUP BY fc.concert_id, fc.concert_name
+ORDER BY matching_tag_count DESC;
+
+
+-- Identifier les concerts à venir dont le genre correspond
+-- aux genres des chansons que l'utilisateur a ajoutées à ses playlists.
+SELECT fc.concert_id, fc.concert_name, COUNT(*) AS matching_genre_count
+FROM future_concert fc
+JOIN future_concert_genre fcg ON fc.concert_id = fcg.concert_id
+JOIN track_genre tg ON fcg.genre_id = tg.genre_id
+JOIN playlist_track pt ON tg.track_id = pt.track_id
+JOIN playlist p ON pt.playlist_id = p.playlist_id
+WHERE p.user_id = :user_id
+GROUP BY fc.concert_id, fc.concert_name
+ORDER BY matching_genre_count DESC;

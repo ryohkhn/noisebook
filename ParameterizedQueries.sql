@@ -28,6 +28,7 @@ JOIN place p ON v.place_id = p.place_id
 WHERE p.city = $1;
 
 
+-- Playlists created by a given user
 PREPARE user_playlists(INT) AS
 WITH user_playlists AS (
     SELECT pl.playlist_id, pl.playlist_name, pl.description, u.username, u.user_id
@@ -37,6 +38,3 @@ WITH user_playlists AS (
 SELECT up.playlist_name, up.description
 FROM user_playlists up
 WHERE up.user_id = $1;
-
---EXECUTE following_hierarchy(1);
---EXECUTE upcoming_concert_in_city('Barcelona');
